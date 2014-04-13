@@ -5,7 +5,7 @@ if [ -f ~/.git-completion.sh ]; then
   GIT_PS1_SHOWUNTRACKEDFILES=true
   PS1=$PS1'\[\033[32m\]$(__git_ps1 " (%s)")\[\033[00m\]'
 fi
-PS1=$PS1" $ "
+PS1=$PS1"\n$ "
 export PS1
 
 export EDITOR=vim
