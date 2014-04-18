@@ -31,6 +31,10 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
+if [ -f ./.bashrc_local ]; then
+  . ./.bashrc_local
+fi
+
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
