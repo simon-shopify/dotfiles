@@ -11,6 +11,7 @@ set expandtab
 set hlsearch
 set mouse=a
 
+syntax on
 colorscheme monokai
 
 nnoremap <leader><space> :noh<cr>
