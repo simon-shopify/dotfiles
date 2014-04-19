@@ -19,6 +19,8 @@ nnoremap <leader><space> :noh<cr>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 'ra'
 
+let g:airline_powerline_fonts = 1
+
 autocmd BufWritePre * :%s/\s\+$//e
 
 noremap <up> <nop>
