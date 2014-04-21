@@ -9,6 +9,7 @@ PS1=$PS1"\n$ "
 export PS1
 
 export EDITOR=vim
+PATH="$PATH:$HOME/.rvm/bin"
 
 HISTCONTROL=ignoreboth
 shopt -s histappend
