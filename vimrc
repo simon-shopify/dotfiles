@@ -10,6 +10,7 @@ set softtabstop=2
 set expandtab
 set hlsearch
 set mouse=a
+set noswapfile
 
 set listchars=tab:→\ ,trail:×
 set list
