@@ -9,7 +9,6 @@ PS1=$PS1"\n$ "
 export PS1
 
 export EDITOR=vim
-PATH="$PATH:$HOME/.rvm/bin"
 
 HISTCONTROL=ignoreboth
 shopt -s histappend
@@ -32,8 +31,8 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
-if [ -f ./.bashrc_local ]; then
-  . ./.bashrc_local
+if [ -f $HOME/.bashrc_local ]; then
+  . $HOME/.bashrc_local
 fi
 
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then

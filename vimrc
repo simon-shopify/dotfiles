@@ -22,6 +22,7 @@ nnoremap <leader><space> :noh<cr>
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
 let g:airline_powerline_fonts = 1
 
