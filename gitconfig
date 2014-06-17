@@ -6,8 +6,6 @@
   co = checkout
   st = status --short
   br = branch
-  pa = log -n 1 HEAD
-  a = commit --amend --no-edit .
 [push]
   default = simple
 [pull]
