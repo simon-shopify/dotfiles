@@ -1,0 +1,10 @@
+---
+'.tmux.conf': 'tmux.conf'
+'.vimrc': 'vimrc'
+'.vim': 'vim'
+'.config/powerline': 'powerline'
+'.bashrc': 'bashrc'
+'.bash_profile': 'bash_profile'
+'.gitconfig': 'gitconfig'
+'.gitignore': 'gitignore'
+'.git-completion.sh': 'git-completion.sh'
