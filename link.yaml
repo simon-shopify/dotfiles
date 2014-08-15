@@ -8,3 +8,5 @@
 '.gitconfig': 'gitconfig'
 '.gitignore': 'gitignore'
 '.git-completion.sh': 'git-completion.sh'
+'.oh-my-zsh': 'oh-my-zsh'
+'.zshrc': 'zshrc'
