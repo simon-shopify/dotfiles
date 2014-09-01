@@ -1,7 +1,23 @@
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'tpope/vim-sensible.git'
+Plugin 'tpope/vim-commentary'
+Plugin 'kien/ctrlp.vim'
+Plugin 'bling/vim-airline.git'
+Plugin 'scrooloose/syntastic'
+Plugin 'fatih/vim-go'
+
+call vundle#end()
+filetype plugin indent on
+
 let mapleader=","
 noremap \ ,
-
-execute pathogen#infect()
 
 set number
 set tabstop=2
@@ -63,4 +79,3 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
-
