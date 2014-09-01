@@ -3,7 +3,7 @@ export PATH="$HOME/bin:/usr/local/bin:$GOPATH/bin:$PATH"
 export ZSH=$HOME/.oh-my-zsh
 
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
-ZSH_THEME="bira"
+ZSH_THEME="sgnr"
 CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
