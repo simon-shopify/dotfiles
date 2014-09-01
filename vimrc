@@ -53,7 +53,6 @@ let g:airline_powerline_fonts = 1
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Go
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 noremap <up> <nop>
