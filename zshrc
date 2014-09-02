@@ -1,4 +1,4 @@
-export PATH="$HOME/bin:/usr/local/bin:$GOPATH/bin:$PATH"
+export PATH="$HOME/.config/bin/$(uname -s)-$(uname -m):/usr/local/bin:$GOPATH/bin:$PATH"
 
 export ZSH=$HOME/.oh-my-zsh
 
