@@ -39,7 +39,7 @@ nnoremap <leader><space> :noh<cr>
 "CtrlP stuff
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 'ra'
-let g:path_to_matcher = "/usr/local/bin/matcher"
+let g:path_to_matcher = "matcher"
 let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard']
 let g:ctrlp_match_func = { 'match': 'GoodMatch' }
 
