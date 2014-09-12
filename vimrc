@@ -12,6 +12,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline.git'
 Plugin 'scrooloose/syntastic'
 Plugin 'fatih/vim-go'
+Plugin 'wting/rust.vim'
 
 call vundle#end()
 filetype plugin indent on
