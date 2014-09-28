@@ -16,6 +16,7 @@ Plugin 'wting/rust.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'rking/ag.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -35,7 +36,24 @@ set listchars=tab:→\ ,trail:×
 set list
 
 syntax on
-colorscheme monokai
+
+set background=dark
+colorscheme base16-railscasts
+highlight clear SignColumn
+highlight VertSplit    ctermbg=236
+highlight ColorColumn  ctermbg=237
+highlight LineNr       ctermbg=236 ctermfg=240
+highlight CursorLineNr ctermbg=236 ctermfg=240
+highlight CursorLine   ctermbg=236
+highlight StatusLineNC ctermbg=238 ctermfg=0
+highlight StatusLine   ctermbg=240 ctermfg=12
+highlight IncSearch    ctermbg=3   ctermfg=1
+highlight Search       ctermbg=1   ctermfg=3
+highlight Visual       ctermbg=3   ctermfg=0
+highlight Pmenu        ctermbg=240 ctermfg=12
+highlight PmenuSel     ctermbg=3   ctermfg=1
+highlight SpellBad     ctermbg=0   ctermfg=1
+
 hi SpecialKey ctermfg=59 ctermbg=235 cterm=bold
 
 nnoremap <leader><space> :noh<cr>
@@ -70,6 +88,8 @@ endfunction
 
 let g:airline_powerline_fonts = 1
 
+nmap <Leader>a yiw:Ag <C-r>"<cr>
+
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Go
@@ -92,6 +112,49 @@ autocmd FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 
 " JS
 let g:syntastic_jslint_checkers=['jslint']
+
+" Ruby
+
+function! RubyRunTests(filename)
+  " Write the file and run tests for the given filename
+  :w
+  :silent !clear
+  if match(a:filename, '_test\.rb$') != -1
+    exec ":!spring testunit " . a:filename
+  else
+    if filereadable("Gemfile")
+      exec ":!bundle exec rspec --color " . a:filename
+    else
+      exec ":!rspec --color " . a:filename
+    end
+  end
+endfunction
+
+function! RubySetTestFile()
+  let t:current_ruby_test_file=@%
+endfunction
+
+function! RubyRunTestFile(...)
+  if a:0
+    let command_suffix = a:1
+  else
+    let command_suffix = ""
+  endif
+
+  " run the tests for the previously-marked file.
+  let in_test_file = match(expand("%"), '\(_spec.rb\|_test.rb\)$') != -1
+  if in_test_file
+    call RubySetTestFile()
+  elseif !exists("t:current_ruby_test_file")
+    return
+  end
+  call RubyRunTests(t:current_ruby_test_file . command_suffix)
+endfunction
+
+autocmd FileType ruby nmap <Leader>t :call RubyRunTestFile()<cr>
+autocmd FileType ruby nmap <Leader>k :!spring stop<cr>
+
+" Live it
 
 noremap <up> <nop>
 noremap <down> <nop>
