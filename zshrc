@@ -1,4 +1,5 @@
 export PATH="$HOME/.config/bin/$(uname -s)-$(uname -m):$HOME/.config/bin/any:/usr/local/bin:$GOPATH/bin:$PATH"
+export PATH="$HOME/.config/powerline/src/scripts/:$PATH"
 
 export ZSH=$HOME/.oh-my-zsh
 
