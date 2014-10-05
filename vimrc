@@ -17,6 +17,11 @@ Plugin 'cespare/vim-toml'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'rking/ag.vim'
+Plugin 'guns/vim-clojure-static'
+Plugin 'tpope/vim-fireplace'
+Plugin 'vim-scripts/paredit.vim'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'othree/html5.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -153,6 +158,30 @@ endfunction
 
 autocmd FileType ruby nmap <Leader>t :call RubyRunTestFile()<cr>
 autocmd FileType ruby nmap <Leader>k :!spring stop<cr>
+
+" Clojure
+
+autocmd FileType clojure :RainbowParenthesesToggle
+autocmd FileType clojure :RainbowParenthesesLoadRound
+autocmd FileType clojure :RainbowParenthesesLoadSquare
+autocmd FileType clojure :RainbowParenthesesLoadBraces
+let g:rbpt_colorpairs = [
+  \ ['brown',       'RoyalBlue3'],
+  \ ['Darkblue',    'SeaGreen3'],
+  \ ['darkgray',    'DarkOrchid3'],
+  \ ['darkgreen',   'firebrick3'],
+  \ ['darkcyan',    'RoyalBlue3'],
+  \ ['darkred',     'SeaGreen3'],
+  \ ['brown',       'firebrick3'],
+  \ ['gray',        'RoyalBlue3'],
+  \ ['black',       'SeaGreen3'],
+  \ ['darkmagenta', 'DarkOrchid3'],
+  \ ['Darkblue',    'firebrick3'],
+  \ ['darkgreen',   'RoyalBlue3'],
+  \ ['darkcyan',    'SeaGreen3'],
+  \ ['darkred',     'DarkOrchid3'],
+  \ ['red',         'firebrick3'],
+  \ ]
 
 " Live it
 

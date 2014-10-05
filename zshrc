@@ -8,7 +8,7 @@ CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git vagrant lein bundler)
+plugins=(git vagrant lein bundler golang)
 
 source $ZSH/oh-my-zsh.sh
 

@@ -9,3 +9,4 @@
 '.oh-my-zsh-custom': 'oh-my-zsh-custom'
 '.zshrc': 'zshrc'
 '.config/bin': 'bin'
+'.lein': 'lein'
