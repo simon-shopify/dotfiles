@@ -13,7 +13,7 @@ plugins=(git vagrant lein bundler golang)
 
 source $ZSH/oh-my-zsh.sh
 
-alias g="grep -rnI"
+alias g="grep -rnI --exclude='*.a'"
 
 export EDITOR=vim
 export TZ=America/Montreal

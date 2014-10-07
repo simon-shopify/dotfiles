@@ -93,7 +93,7 @@ endfunction
 
 let g:airline_powerline_fonts = 1
 
-nmap <Leader>a yiw:Ag <C-r>"<cr>
+nmap <Leader>a yiw:Ag --ignore '*.a' <C-r>"<cr>
 
 autocmd BufWritePre * :%s/\s\+$//e
 
