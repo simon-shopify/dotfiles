@@ -161,6 +161,8 @@ autocmd FileType ruby nmap <Leader>k :!spring stop<cr>
 
 " Clojure
 
+autocmd FileType clojure setlocal lispwords+=go-loop
+
 autocmd FileType clojure :RainbowParenthesesToggle
 autocmd FileType clojure :RainbowParenthesesLoadRound
 autocmd FileType clojure :RainbowParenthesesLoadSquare
