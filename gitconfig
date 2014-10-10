@@ -7,7 +7,7 @@
   st = status --short
   br = branch
   frob = !git rebase -i "$(git merge-base @ origin/master)"
-  green = !git checkout "$(script/ci_last_green_master)"
+  co-green = !git checkout "$(script/ci_last_green_master)"
   rebase-green = !git rebase "$(script/ci_last_green_master)"
 [push]
   default = simple
