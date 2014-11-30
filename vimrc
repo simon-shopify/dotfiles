@@ -36,6 +36,7 @@ set softtabstop=2
 set expandtab
 set hlsearch
 set noswapfile
+set hidden
 
 set listchars=tab:→\ ,trail:×
 set list
@@ -117,47 +118,6 @@ autocmd FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 
 " JS
 let g:syntastic_jslint_checkers=['jslint']
-
-" Ruby
-
-function! RubyRunTests(filename)
-  " Write the file and run tests for the given filename
-  :w
-  :silent !clear
-  if match(a:filename, '_test\.rb$') != -1
-    exec ":!spring testunit " . a:filename
-  else
-    if filereadable("Gemfile")
-      exec ":!bundle exec rspec --color " . a:filename
-    else
-      exec ":!rspec --color " . a:filename
-    end
-  end
-endfunction
-
-function! RubySetTestFile()
-  let t:current_ruby_test_file=@%
-endfunction
-
-function! RubyRunTestFile(...)
-  if a:0
-    let command_suffix = a:1
-  else
-    let command_suffix = ""
-  endif
-
-  " run the tests for the previously-marked file.
-  let in_test_file = match(expand("%"), '\(_spec.rb\|_test.rb\)$') != -1
-  if in_test_file
-    call RubySetTestFile()
-  elseif !exists("t:current_ruby_test_file")
-    return
-  end
-  call RubyRunTests(t:current_ruby_test_file . command_suffix)
-endfunction
-
-autocmd FileType ruby nmap <Leader>t :call RubyRunTestFile()<cr>
-autocmd FileType ruby nmap <Leader>k :!spring stop<cr>
 
 " Clojure
 
