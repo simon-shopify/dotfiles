@@ -92,8 +92,6 @@ function! GoodMatch(items, str, limit, mmode, ispath, crfile, regex)
   return split(system(cmd), "\n")
 endfunction
 
-let g:airline_powerline_fonts = 1
-
 nmap <Leader>a yiw:Ag --ignore '*.a' <C-r>"<cr>
 
 autocmd BufWritePre * :%s/\s\+$//e
