@@ -2,7 +2,6 @@
 '.tmux.conf': 'tmux.conf'
 '.vimrc': 'vimrc'
 '.vim': 'vim'
-'.config/powerline': 'powerline'
 '.gitconfig': 'gitconfig'
 '.gitignore': 'gitignore'
 '.oh-my-zsh': 'oh-my-zsh'
