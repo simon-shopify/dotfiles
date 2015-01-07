@@ -3,6 +3,8 @@
   excludesfile = ~/.gitignore
   pager = less -F -X
 [alias]
+  i = log -1
+  am = commit --amend -C @
   ci = commit
   co = checkout
   st = status --short
