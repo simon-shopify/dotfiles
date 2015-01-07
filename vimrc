@@ -38,6 +38,8 @@ set expandtab
 set hlsearch
 set noswapfile
 set hidden
+set splitbelow
+set splitright
 
 set listchars=tab:→\ ,trail:×
 set list
