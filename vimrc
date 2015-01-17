@@ -67,6 +67,8 @@ hi SpecialKey ctermfg=59 ctermbg=235 cterm=bold
 
 nnoremap <leader><space> :noh<cr>
 
+let g:syntastic_c_checkers = []
+
 "CtrlP stuff
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 'ra'

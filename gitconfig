@@ -4,7 +4,7 @@
   pager = less -F -X
 [alias]
   i = log -1
-  am = commit --amend -C @
+  amend = commit --amend -C @
   ci = commit
   co = checkout
   st = status --short

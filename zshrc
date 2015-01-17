@@ -29,3 +29,5 @@ fixssh() {
     fi
   done
 }
+
+export IM_ALREADY_PRO_THANKS=1
