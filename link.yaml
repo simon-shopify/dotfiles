@@ -2,6 +2,7 @@
 '.tmux.conf': 'tmux.conf'
 '.emacs.d': 'emacs.d'
 '.spacemacs': 'spacemacs'
+'.spacemacs-layers': 'spacemacs-layers'
 '.gitconfig': 'gitconfig'
 '.gitignore': 'gitignore'
 '.oh-my-zsh': 'oh-my-zsh'
