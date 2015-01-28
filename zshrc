@@ -15,7 +15,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias g="grep -rnI --exclude='*.a'"
 
-export EDITOR=vim
+export EDITOR=emacs
 export TZ=America/Montreal
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
 

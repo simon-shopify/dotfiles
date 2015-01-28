@@ -2,6 +2,8 @@
 '.tmux.conf': 'tmux.conf'
 '.vimrc': 'vimrc'
 '.vim': 'vim'
+'.emacs.d': 'emacs.d'
+'.spacemacs': 'spacemacs'
 '.gitconfig': 'gitconfig'
 '.gitignore': 'gitignore'
 '.oh-my-zsh': 'oh-my-zsh'

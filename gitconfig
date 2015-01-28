@@ -1,5 +1,5 @@
 [core]
-  editor = vim
+  editor = emacs
   excludesfile = ~/.gitignore
   pager = less -F -X
 [alias]
@@ -21,4 +21,3 @@
 [user]
   name = Simon Génier
   email = simon.genier@shopify.com
-
