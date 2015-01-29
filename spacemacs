@@ -25,7 +25,7 @@
  ;; the value is nil then no banner is displayed.
  dotspacemacs-startup-banner 'random
  ;; Default theme applied at startup
- dotspacemacs-themes '(monokai)
+ dotspacemacs-themes '(solarized-light)
  ;; The leader key
  dotspacemacs-leader-key "SPC"
  ;; Major mode leader key is a shortcut key which is the equivalent of
