@@ -74,6 +74,10 @@
  dotspacemacs-default-package-repository nil
  )
 
+(setq-default
+ sp-autoescape-string-quote-if-empty t
+ require-final-newline t)
+
 ;; Initialization Hooks
 ;; --------------------
 
@@ -90,10 +94,5 @@ This function is called at the very end of Spacemacs initialization."
 ;; Custom variables
 ;; ----------------
 
-(setq-default
- sp-autoescape-string-quote-if-empty t)
-
 ;; Do not write anything in this section. This is where Emacs will
 ;; auto-generate custom variable definitions.
-
-
