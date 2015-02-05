@@ -78,6 +78,10 @@
  ;; We are not savages.
  require-final-newline t)
 
+;; Ruby
+(setq-default
+ enh-ruby-deep-indent-paren nil)
+
 ;; Initialization Hooks
 ;; --------------------
 
@@ -87,9 +91,7 @@
   )
 
 (defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
-)
+  (global-hl-line-mode 0))
 
 ;; Custom variables
 ;; ----------------
