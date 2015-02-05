@@ -75,7 +75,7 @@
  )
 
 (setq-default
- sp-autoescape-string-quote-if-empty t
+ ;; We are not savages.
  require-final-newline t)
 
 ;; Initialization Hooks
