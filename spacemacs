@@ -82,6 +82,9 @@
 (setq-default
  enh-ruby-deep-indent-paren nil)
 
+;; C
+(add-hook 'c-mode-hook '(lambda () (c-toggle-auto-newline 0)))
+
 ;; Initialization Hooks
 ;; --------------------
 
