@@ -94,7 +94,8 @@
   )
 
 (defun dotspacemacs/config ()
-  (global-hl-line-mode 0))
+  (global-hl-line-mode 0)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
 ;; Custom variables
 ;; ----------------
