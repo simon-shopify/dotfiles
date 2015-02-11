@@ -74,13 +74,8 @@
  dotspacemacs-default-package-repository nil
  )
 
-(setq-default
- ;; We are not savages.
- require-final-newline t)
-
 ;; Ruby
-(setq-default
- enh-ruby-deep-indent-paren nil)
+(add-hook 'ruby-mode-hook '(lambda () (setq evil-shift-width ruby-indent-level)))
 
 ;; C
 (add-hook 'c-mode-hook '(lambda () (c-toggle-auto-newline 0)))
@@ -89,11 +84,10 @@
 ;; --------------------
 
 (defun dotspacemacs/init ()
-  "User initialization for Spacemacs. This function is called at the very
- startup."
-  )
+  (setq-default require-final-newline t))
 
 (defun dotspacemacs/config ()
+  (setq projectile-enable-caching nil)
   (global-hl-line-mode 0)
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
