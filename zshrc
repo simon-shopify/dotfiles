@@ -16,6 +16,7 @@ source $ZSH/oh-my-zsh.sh
 alias g="grep -rnI --exclude='*.a'"
 
 export TERM=xterm
+export LANG="en_US.UTF-8"
 export EDITOR=emacs
 export TZ=America/Montreal
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
