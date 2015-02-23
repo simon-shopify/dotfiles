@@ -13,6 +13,7 @@ RUN apt-get -y --force-yes update \
       emacs24-nox \
       git \
       zsh \
+      tmux \
  && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN groupadd -g 999 docker \
