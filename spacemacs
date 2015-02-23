@@ -10,7 +10,7 @@
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '("~/.spacemacs-layers/")
  ;; List of configuration layers to load.
- dotspacemacs-configuration-layers '(rust c-c++ ruby go lua html python haskell clojure)
+ dotspacemacs-configuration-layers '(rust c-c++ ruby lua html python haskell clojure git)
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '(rainbow-delimiters yasnippet enh-ruby-mode)
 )
@@ -56,7 +56,7 @@
  ;; can be toggled through `toggle-transparency'.
  dotspacemacs-inactive-transparency 90
  ;; If non nil unicode symbols are displayed in the mode line (e.g. for lighters)
- dotspacemacs-mode-line-unicode-symbols t
+ dotspacemacs-mode-line-unicode-symbols nil
  ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
  ;; overrides the default behavior of Emacs which recenters the point when
  ;; it reaches the top or bottom of the screen
