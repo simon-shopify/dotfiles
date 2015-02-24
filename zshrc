@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 export PATH="$HOME/.config/bin/$(uname -s)-$(uname -m):$HOME/.config/bin/any:/usr/local/bin:$GOPATH/bin:$PATH"
 export PATH="$HOME/.config/powerline/src/scripts:$PATH"
 
@@ -22,14 +24,11 @@ export TZ=America/Montreal
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
 
 export GOBIN="$GOPATH/bin"
-
-fixssh() {
-  for key in SSH_AUTH_SOCK SSH_CONNECTION SSH_CLIENT; do
-    if (tmux show-environment | grep "^${key}" > /dev/null); then
-      value=`tmux show-environment | grep "^${key}" | sed -e "s/^[A-Z_]*=//"`
-      export ${key}="${value}"
-    fi
-  done
-}
-
 export IM_ALREADY_PRO_THANKS=1
+
+NEW_SSH_AUTH_SOCK="$HOME/.ssh/auth-sock"
+if test $SSH_AUTH_SOCK && [ $SSH_AUTH_SOCK != $NEW_SSH_AUTH_SOCK ]; then
+  rm -f $NEW_SSH_AUTH_SOCK
+  ln -sf $SSH_AUTH_SOCK $NEW_SSH_AUTH_SOCK
+  export SSH_AUTH_SOCK=$NEW_SSH_AUTH_SOCK
+fi
