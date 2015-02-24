@@ -14,6 +14,7 @@ RUN apt-get -y --force-yes update \
       git \
       zsh \
       tmux \
+ && gem install pry pry-byebug pry-stack_explorer \
  && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN groupadd -g 999 docker \
@@ -28,6 +29,7 @@ ENV HOME /home/sgnr
 
 RUN mkdir -p ${HOME}/src \
  && mkdir -p ${HOME}/.config \
+ && mkdir -p ${HOME}/.ssh \
  && cd ${HOME}/src \
  && git clone --recursive https://github.com/sgnr/dotfiles.git dotfiles \
  && cd dotfiles \
