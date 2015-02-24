@@ -11,3 +11,4 @@
 '.config/bin': 'bin'
 '.lein': 'lein'
 '.gdbinit': 'gdbinit'
+'.irbrc': 'irbrc'
