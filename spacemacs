@@ -74,9 +74,6 @@
  dotspacemacs-default-package-repository nil
  )
 
-;; Ruby
-(add-hook 'ruby-mode-hook '(lambda () (setq evil-shift-width ruby-indent-level)))
-
 ;; C
 (add-hook 'c-mode-hook '(lambda () (c-toggle-auto-newline 0)))
 
@@ -89,7 +86,15 @@
 (defun dotspacemacs/config ()
   (setq projectile-enable-caching nil)
   (global-hl-line-mode 0)
-  (add-hook 'before-save-hook 'delete-trailing-whitespace))
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+  ;; Ruby
+  (add-hook
+   'ruby-mode-hook
+   '(lambda ()
+      (setq evil-shift-width ruby-indent-level
+            ruby-deep-indent-paren nil
+            ruby-deep-arglist nil))))
 
 ;; Custom variables
 ;; ----------------
