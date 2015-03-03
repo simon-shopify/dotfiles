@@ -91,7 +91,8 @@
    '(lambda ()
       (c-toggle-auto-newline 0)
       (c-set-offset 'arglist-intro 2)
-      (c-set-offset 'arglist-close 0)))
+      (c-set-offset 'arglist-close 0)
+      (c-set-offset 'inextern-lang 0)))
 
   ;; Ruby
   (add-hook
