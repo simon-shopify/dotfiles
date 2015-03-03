@@ -74,9 +74,6 @@
  dotspacemacs-default-package-repository nil
  )
 
-;; C
-(add-hook 'c-mode-hook '(lambda () (c-toggle-auto-newline 0)))
-
 ;; Initialization Hooks
 ;; --------------------
 
@@ -87,6 +84,14 @@
   (setq projectile-enable-caching nil)
   (global-hl-line-mode 0)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+  ;; C
+  (add-hook
+   'c-mode-hook
+   '(lambda ()
+      (c-toggle-auto-newline 0)
+      (c-set-offset 'arglist-intro 2)
+      (c-set-offset 'arglist-close 0)))
 
   ;; Ruby
   (add-hook
