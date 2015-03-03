@@ -10,7 +10,7 @@ RUN apt-get -y --force-yes update \
       build-essential \
       sudo \
       ruby2.2 ruby2.2-dev \
-      emacs24-nox \
+      emacs24-nox emacs24-el \
       git \
       zsh \
       tmux \
