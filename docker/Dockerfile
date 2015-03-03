@@ -33,7 +33,9 @@ RUN mkdir -p ${HOME}/src \
  && cd ${HOME}/src \
  && git clone --recursive https://github.com/sgnr/dotfiles.git dotfiles \
  && cd dotfiles \
- && ./link.rb
+ && ./link.rb \
+ && git remote rm origin \
+ && git remote add origin git@github.com:sgnr/dotfiles.git
 
 WORKDIR /home/sgnr
 CMD /bin/zsh
