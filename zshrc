@@ -26,8 +26,9 @@ export TZ=America/Montreal
 export GOBIN="$GOPATH/bin"
 export IM_ALREADY_PRO_THANKS=1
 
-NEW_SSH_AUTH_SOCK="$HOME/.ssh/auth-sock"
+NEW_SSH_AUTH_SOCK="$HOME/.ssh/auth-sock/auth-sock"
 if test $SSH_AUTH_SOCK && [ $SSH_AUTH_SOCK != $NEW_SSH_AUTH_SOCK ]; then
+  mkdir -p "$(dirname "$NEW_SSH_AUTH_SOCK")"
   rm -f $NEW_SSH_AUTH_SOCK
   ln -sf $SSH_AUTH_SOCK $NEW_SSH_AUTH_SOCK
   export SSH_AUTH_SOCK=$NEW_SSH_AUTH_SOCK

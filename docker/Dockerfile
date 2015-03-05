@@ -26,6 +26,7 @@ RUN groupadd -g 999 docker \
       sgnr
 USER sgnr
 ENV HOME /home/sgnr
+ENV SSH_AUTH_SOCK /home/sgnr/.ssh/auth-sock/auth-sock
 
 RUN mkdir -p ${HOME}/src \
  && mkdir -p ${HOME}/.config \
