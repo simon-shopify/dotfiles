@@ -10,7 +10,7 @@
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '("~/.spacemacs-layers/")
  ;; List of configuration layers to load.
- dotspacemacs-configuration-layers '(rust c-c++ ruby lua html python haskell clojure git idris)
+ dotspacemacs-configuration-layers '(rust c-c++ ruby lua html python haskell clojure git idris html)
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '(rainbow-delimiters yasnippet enh-ruby-mode srefactor)
 )
@@ -81,6 +81,9 @@
   (setq-default require-final-newline t))
 
 (defun dotspacemacs/config ()
+  (setq c-basic-offset 2)
+  (setq sgml-basic-offset 2)
+  (setq web-mode-markup-indent-offset 2)
   (setq projectile-enable-caching nil)
   (global-hl-line-mode 0)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
