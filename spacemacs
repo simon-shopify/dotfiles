@@ -12,7 +12,7 @@
  ;; List of configuration layers to load.
  dotspacemacs-configuration-layers '(rust c-c++ ruby lua html python haskell clojure git idris html)
  ;; A list of packages and/or extensions that will not be install and loaded.
- dotspacemacs-excluded-packages '(rainbow-delimiters yasnippet enh-ruby-mode srefactor)
+ dotspacemacs-excluded-packages '(rainbow-delimiters yasnippet enh-ruby-mode)
 )
 
 ;; Settings
