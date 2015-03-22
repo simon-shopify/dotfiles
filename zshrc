@@ -1,7 +1,6 @@
 #!/bin/zsh
 
 export PATH="$HOME/.config/bin/$(uname -s)-$(uname -m):$HOME/.config/bin/any:/usr/local/bin:$GOPATH/bin:$PATH"
-export PATH="$HOME/.config/powerline/src/scripts:$PATH"
 
 export ZSH=$HOME/.oh-my-zsh
 
@@ -31,5 +30,5 @@ if test $SSH_AUTH_SOCK && [ $SSH_AUTH_SOCK != $NEW_SSH_AUTH_SOCK ]; then
   mkdir -p "$(dirname "$NEW_SSH_AUTH_SOCK")"
   rm -f $NEW_SSH_AUTH_SOCK
   ln -sf $SSH_AUTH_SOCK $NEW_SSH_AUTH_SOCK
-  export SSH_AUTH_SOCK=$NEW_SSH_AUTH_SOCK
 fi
+export SSH_AUTH_SOCK=$NEW_SSH_AUTH_SOCK
