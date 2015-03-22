@@ -78,14 +78,18 @@
 ;; --------------------
 
 (defun dotspacemacs/init ()
-  (setq-default require-final-newline t))
+  (menu-bar-mode -1)
+  (setq-default require-final-newline t)
+  (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode)))
 
 (defun dotspacemacs/config ()
+  (setq powerline-default-separator nil)
   (setq c-basic-offset 2)
   (setq sgml-basic-offset 2)
   (setq web-mode-markup-indent-offset 2)
   (setq projectile-enable-caching nil)
   (global-hl-line-mode 0)
+  (recentf-mode 0)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
   ;; C
