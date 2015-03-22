@@ -3,9 +3,4 @@
 *.swp
 .#*
 
-*.dylib
-*.a
-*.o
-*.rlib
-
 Gemfile.lock
