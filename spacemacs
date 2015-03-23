@@ -10,7 +10,7 @@
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '("~/.spacemacs-layers/")
  ;; List of configuration layers to load.
- dotspacemacs-configuration-layers '(rust c-c++ ruby lua html python haskell clojure git idris html)
+ dotspacemacs-configuration-layers '(rust c-c++ ruby lua html python haskell clojure git idris html markdown)
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '(rainbow-delimiters yasnippet enh-ruby-mode)
 )
@@ -107,7 +107,13 @@
    '(lambda ()
       (setq evil-shift-width ruby-indent-level
             ruby-deep-indent-paren nil
-            ruby-deep-arglist nil))))
+            ruby-deep-arglist nil)))
+
+  ;; Markdown
+  (add-hook
+   'markdown-mode-hook
+   '(lambda ()
+      (sp-pair "`" nil :actions :rem))))
 
 ;; Custom variables
 ;; ----------------
