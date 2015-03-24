@@ -28,26 +28,19 @@
 ;; --------
 
 (setq-default
- ;; Specify the startup banner. If the value is an integer then the
- ;; banner with the corresponding index is used, if the value is `random'
- ;; then the banner is chosen randomly among the available banners, if
- ;; the value is nil then no banner is displayed.
- dotspacemacs-startup-banner 'random
- ;; Default theme applied at startup
+ dotspacemacs-startup-banner 999
  dotspacemacs-themes '(solarized-light)
- ;; The leader key
  dotspacemacs-leader-key "SPC"
- ;; Major mode leader key is a shortcut key which is the equivalent of
- ;; pressing `<leader> m`
  dotspacemacs-major-mode-leader-key ","
- ;; The command key used for Evil commands (ex-commands) and
- ;; Emacs commands (M-x).
- ;; By default the command key is `:' so ex-commands are executed like in Vim
- ;; with `:' and Emacs commands are executed with `<leader> :'.
  dotspacemacs-command-key ":"
- ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
- ;; the commands bound to the current keystrokes.
  dotspacemacs-guide-key-delay 0.4
+
+ dotspacemacs-default-font '("Input Mono"
+                             :size 14
+                             :weight normal
+                             :width normal
+                             :powerline-scale 1.1)
+
  ;; If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).
  dotspacemacs-fullscreen-at-startup nil
  ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
