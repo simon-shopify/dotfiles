@@ -1,19 +1,28 @@
 ;; -*- mode: dotspacemacs -*-
-;; This file is loaded by Spacemacs at startup.
-;; It must be stored in your home directory.
 
-;; Configuration Layers
-;; --------------------
+(defun dotspacemacs/layers ()
+  (setq-default
+   dotspacemacs-configuration-layer-path '("~/.spacemacs-layers/")
 
-(setq-default
- ;; List of additional paths where to look for configuration layers.
- ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
- dotspacemacs-configuration-layer-path '("~/.spacemacs-layers/")
- ;; List of configuration layers to load.
- dotspacemacs-configuration-layers '(rust c-c++ ruby lua html python haskell clojure git idris html markdown)
- ;; A list of packages and/or extensions that will not be install and loaded.
- dotspacemacs-excluded-packages '(rainbow-delimiters yasnippet enh-ruby-mode)
-)
+   dotspacemacs-configuration-layers
+   '(c-c++
+     clojure
+     company-mode
+     git
+     lua
+     rust
+     ;; haskell
+     html
+     idris
+     markdown
+     python
+     ruby)
+
+   dotspacemacs-excluded-packages
+   '(company-quickhelp
+     enh-ruby-mode
+     rainbow-delimiters
+     yasnippet)))
 
 ;; Settings
 ;; --------
@@ -80,7 +89,9 @@
 (defun dotspacemacs/init ()
   (menu-bar-mode -1)
   (setq-default require-final-newline t)
-  (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode)))
+  (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.mrb$" . ruby-mode))
+  (setq-default company-mode-use-tab-instead-of-enter t))
 
 (defun dotspacemacs/config ()
   (setq powerline-default-separator nil)
@@ -105,6 +116,7 @@
   (add-hook
    'ruby-mode-hook
    '(lambda ()
+      (flycheck-mode 1)
       (setq evil-shift-width ruby-indent-level
             ruby-deep-indent-paren nil
             ruby-deep-arglist nil)))
