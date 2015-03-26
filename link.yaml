@@ -12,3 +12,4 @@
 '.lein': 'lein'
 '.gdbinit': 'gdbinit'
 '.irbrc': 'irbrc'
+'.rubocop.yml': 'rubocop.yml'
