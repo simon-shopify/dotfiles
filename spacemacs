@@ -13,7 +13,7 @@
      rust
      ;; haskell
      html
-     idris
+     idr
      markdown
      python
      ruby)

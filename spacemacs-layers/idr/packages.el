@@ -10,8 +10,11 @@
 ;;
 ;;; License: GPLv3
 
-(defvar idris-packages '(idris-mode))
+(defvar idr-packages '(idris-mode))
 
-(defvar idris-excluded-packages '())
+(defvar idr-excluded-packages '())
 
-(defun idris/init-idris-mode())
+(defun idr/init-idris-mode ()
+  (use-package idris-mode
+    :defer t
+    :config))
