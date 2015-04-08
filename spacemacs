@@ -84,6 +84,7 @@
   (setq-default require-final-newline t)
   (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.mrb$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
   (setq-default company-mode-use-tab-instead-of-enter t))
 
 (defun dotspacemacs/config ()
