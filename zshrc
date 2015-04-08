@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 export PATH="$HOME/.config/bin/$(uname -s)-$(uname -m):$HOME/.config/bin/any:/usr/local/bin:$GOPATH/bin:$PATH"
+export PATH="$HOME/.cabal/bin:$PATH"
 
 export ZSH=$HOME/.oh-my-zsh
 
