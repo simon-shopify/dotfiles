@@ -5,18 +5,20 @@
    dotspacemacs-configuration-layer-path '("~/.spacemacs-layers/")
 
    dotspacemacs-configuration-layers
-   '(c-c++
+   '(auto-completion
+     c-c++
      clojure
      company-mode
      git
      lua
-     rust
-     ;; haskell
+     haskell
      html
      idr
      markdown
      python
-     ruby)
+     ruby
+     rust
+     syntax-checking)
 
    dotspacemacs-excluded-packages
    '(company-quickhelp
