@@ -8,7 +8,8 @@
    '(auto-completion
      c-c++
      clojure
-     company-mode
+     '(company-mode :variables auto-completion-use-tab-instead-of-enter t)
+     erlang-elixir
      git
      lua
      haskell
@@ -86,8 +87,7 @@
   (setq-default require-final-newline t)
   (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.mrb$" . ruby-mode))
-  (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-  (setq-default company-mode-use-tab-instead-of-enter t))
+  (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode)))
 
 (defun dotspacemacs/config ()
   (setq powerline-default-separator nil)
@@ -98,6 +98,8 @@
   (global-hl-line-mode 0)
   (recentf-mode 0)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  (sp-pair "'" nil :actions :rem)
+  (sp-pair "\"" nil :actions :rem)
 
   ;; C
   (add-hook
