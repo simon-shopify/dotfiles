@@ -11,6 +11,7 @@
      '(company-mode :variables auto-completion-use-tab-instead-of-enter t)
      erlang-elixir
      git
+     javascript
      lua
      haskell
      html
@@ -87,7 +88,9 @@
   (setq-default require-final-newline t)
   (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.mrb$" . ruby-mode))
-  (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode)))
+  (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+  (setq-default company-mode-use-tab-instead-of-enter t))
 
 (defun dotspacemacs/config ()
   (setq powerline-default-separator nil)
@@ -101,7 +104,6 @@
   (sp-pair "'" nil :actions :rem)
   (sp-pair "\"" nil :actions :rem)
 
-  ;; C
   (add-hook
    'c-mode-hook
    '(lambda ()
@@ -110,16 +112,15 @@
       (c-set-offset 'arglist-close 0)
       (c-set-offset 'inextern-lang 0)))
 
-  ;; Ruby
   (add-hook
    'ruby-mode-hook
    '(lambda ()
       (flycheck-mode 1)
       (setq evil-shift-width ruby-indent-level
             ruby-deep-indent-paren nil
-            ruby-deep-arglist nil)))
+            ruby-deep-arglist nil
+            ruby-insert-encoding-magic-comment nil)))
 
-  ;; Markdown
   (add-hook
    'markdown-mode-hook
    '(lambda ()
