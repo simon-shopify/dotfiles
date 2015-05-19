@@ -24,7 +24,6 @@
 
    dotspacemacs-excluded-packages
    '(company-quickhelp
-     enh-ruby-mode
      rainbow-delimiters
      yasnippet)))
 
@@ -118,6 +117,7 @@
       (flycheck-mode 1)
       (setq evil-shift-width ruby-indent-level
             ruby-deep-indent-paren nil
+            enh-ruby-deep-indent-paren nil
             ruby-deep-arglist nil
             ruby-insert-encoding-magic-comment nil)))
 
