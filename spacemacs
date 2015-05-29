@@ -27,7 +27,8 @@
    dotspacemacs-excluded-packages
    '(company-quickhelp
      rainbow-delimiters
-     yasnippet)))
+     yasnippet
+     ruby-tools)))
 
 ;; Settings
 ;; --------
@@ -93,6 +94,7 @@
   (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
   (setq auto-completion-return-key-behavior nil
         auto-completion-tab-key-behavior 'complete)
+  (setq-default ruby-enable-ruby-on-rails-support t)
   (setq-default company-mode-use-tab-instead-of-enter t))
 
 (defun dotspacemacs/config ()
@@ -116,13 +118,10 @@
       (c-set-offset 'inextern-lang 0)))
 
   (add-hook
-   'ruby-mode-hook
+   'enh-ruby-mode-hook
    '(lambda ()
-      (flycheck-mode 1)
-      (setq evil-shift-width ruby-indent-level
-            ruby-deep-indent-paren nil
-            enh-ruby-deep-indent-paren nil
-            ruby-deep-arglist nil
+      (setq enh-ruby-deep-indent-paren nil
+            evil-shift-width 2
             ruby-insert-encoding-magic-comment nil)))
 
   (add-hook
