@@ -9,6 +9,7 @@
      c-c++
      clojure
      '(company-mode :variables auto-completion-use-tab-instead-of-enter t)
+     emacs-lisp
      erlang-elixir
      git
      javascript
@@ -20,6 +21,7 @@
      python
      ruby
      rust
+     shell
      syntax-checking)
 
    dotspacemacs-excluded-packages
@@ -89,6 +91,8 @@
   (add-to-list 'auto-mode-alist '("\\.mrb$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+  (setq auto-completion-return-key-behavior nil
+        auto-completion-tab-key-behavior 'complete)
   (setq-default company-mode-use-tab-instead-of-enter t))
 
 (defun dotspacemacs/config ()
