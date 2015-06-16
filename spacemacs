@@ -40,6 +40,7 @@
  dotspacemacs-major-mode-leader-key ","
  dotspacemacs-command-key ":"
  dotspacemacs-guide-key-delay 0.4
+ dotspacemacs-colorize-cursor-according-to-state t
 
  dotspacemacs-default-font '("Input Mono"
                              :size 14
@@ -109,6 +110,8 @@
   (sp-pair "'" nil :actions :rem)
   (sp-pair "\"" nil :actions :rem)
 
+  (evil-leader/set-key "js" 'evil-surround-change)
+
   (add-hook
    'c-mode-hook
    '(lambda ()
@@ -121,8 +124,7 @@
    'enh-ruby-mode-hook
    '(lambda ()
       (setq enh-ruby-deep-indent-paren nil
-            evil-shift-width 2
-            ruby-insert-encoding-magic-comment nil)))
+            evil-shift-width 2)))
 
   (add-hook
    'markdown-mode-hook
