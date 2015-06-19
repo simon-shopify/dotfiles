@@ -124,6 +124,7 @@
    'enh-ruby-mode-hook
    '(lambda ()
       (setq enh-ruby-deep-indent-paren nil
+            flycheck-rubocoprc "~/.rubocop.yml"
             evil-shift-width 2)))
 
   (add-hook
