@@ -120,6 +120,7 @@
       (c-set-offset 'arglist-close 0)
       (c-set-offset 'inextern-lang 0)))
 
+  (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode)
   (add-hook
    'enh-ruby-mode-hook
    '(lambda ()
