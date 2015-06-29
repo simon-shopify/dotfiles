@@ -100,7 +100,6 @@
 
 (defun dotspacemacs/config ()
   (setq powerline-default-separator nil)
-  (setq c-basic-offset 2)
   (setq sgml-basic-offset 2)
   (setq web-mode-markup-indent-offset 2)
   (setq projectile-enable-caching nil)
@@ -115,6 +114,7 @@
   (add-hook
    'c-mode-hook
    '(lambda ()
+      (setq-default c-basic-offset 2)
       (c-toggle-auto-newline 0)
       (c-set-offset 'arglist-intro 2)
       (c-set-offset 'arglist-close 0)
