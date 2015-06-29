@@ -114,7 +114,7 @@
   (add-hook
    'c-mode-hook
    '(lambda ()
-      (setq-default c-basic-offset 2)
+      (setq c-basic-offset 2)
       (c-toggle-auto-newline 0)
       (c-set-offset 'arglist-intro 2)
       (c-set-offset 'arglist-close 0)
