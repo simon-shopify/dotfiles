@@ -43,3 +43,9 @@ fi
 function disas () {
   gdb --batch -ex "file $1" -ex "disas $2"
 }
+
+function ias () {
+  TMP=$(mktemp)
+  SOURCE="main: $1"
+  echo "$SOURCE" | as -o "$TMP" && gdb --batch -ex "file $TMP" -ex "disas /r main"
+}
