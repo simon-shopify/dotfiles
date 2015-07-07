@@ -114,6 +114,12 @@
   (evil-leader/set-key "js" 'evil-surround-change)
 
   (add-hook
+   'term-mode-hook
+   '(lambda ()
+      (define-key evil-insert-state-local-map "\C-p" 'term-send-up)
+      (define-key evil-insert-state-local-map "\C-n" 'term-send-down)))
+
+  (add-hook
    'c-mode-hook
    '(lambda ()
       (setq c-basic-offset 2)
