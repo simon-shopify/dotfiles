@@ -104,6 +104,7 @@
   (setq sgml-basic-offset 2)
   (setq web-mode-markup-indent-offset 2)
   (setq projectile-enable-caching nil)
+  (setq enable-remote-dir-locals t)
   (global-hl-line-mode 0)
   (recentf-mode 0)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
