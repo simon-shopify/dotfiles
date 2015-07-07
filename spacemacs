@@ -10,7 +10,6 @@
      clojure
      '(company-mode :variables auto-completion-use-tab-instead-of-enter t)
      emacs-lisp
-     erlang-elixir
      git
      javascript
      lua
@@ -22,7 +21,9 @@
      ruby
      rust
      shell
-     syntax-checking)
+     syntax-checking
+     vagrant
+     version-control)
 
    dotspacemacs-excluded-packages
    '(company-quickhelp
