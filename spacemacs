@@ -70,7 +70,7 @@
         auto-completion-tab-key-behavior 'complete))
 
 (defun dotspacemacs/config ()
-  (setq powerline-default-separator nil)
+  (setq powerline-default-separator 'bar)
   (setq sgml-basic-offset 2)
   (setq web-mode-markup-indent-offset 2)
   (setq projectile-enable-caching nil)
