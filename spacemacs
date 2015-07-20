@@ -35,6 +35,7 @@
 ;; --------
 
 (setq-default
+ dotspacemacs-editing-style 'vim
  dotspacemacs-themes '(solarized-light)
  dotspacemacs-leader-key "SPC"
  dotspacemacs-major-mode-leader-key ","
@@ -82,12 +83,6 @@
   (sp-pair "\"" nil :actions :rem)
 
   (evil-leader/set-key "js" 'evil-surround-change)
-
-  (add-hook
-   'term-mode-hook
-   '(lambda ()
-      (define-key evil-insert-state-local-map "\C-p" 'term-send-up)
-      (define-key evil-insert-state-local-map "\C-n" 'term-send-down)))
 
   (add-hook
    'c-mode-hook
