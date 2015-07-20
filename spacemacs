@@ -42,7 +42,7 @@
  dotspacemacs-guide-key-delay 0.4
  dotspacemacs-colorize-cursor-according-to-state t
 
- dotspacemacs-default-font '("Source Code Pro"
+ dotspacemacs-default-font '("Fira Mono"
                              :size 13
                              :weight normal
                              :width normal
