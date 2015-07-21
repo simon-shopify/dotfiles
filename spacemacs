@@ -36,7 +36,7 @@
 
 (setq-default
  dotspacemacs-editing-style 'vim
- dotspacemacs-themes '(solarized-light)
+ dotspacemacs-themes '(solarized-dark)
  dotspacemacs-leader-key "SPC"
  dotspacemacs-major-mode-leader-key ","
  dotspacemacs-command-key ":"
