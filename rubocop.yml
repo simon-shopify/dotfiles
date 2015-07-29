@@ -1,7 +1,17 @@
 ---
 
-Metrics/LineLength:
+Metrics/ClassLength:
   Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
 
 Metrics/MethodLength:
   Enabled: false
@@ -9,7 +19,10 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Enabled: false
 
-Metrics/ClassLength:
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Style/CollectionMethods:
   Enabled: false
 
 Style/Documentation:
