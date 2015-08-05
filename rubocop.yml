@@ -31,6 +31,9 @@ Style/Documentation:
 Style/RegexpLiteral:
   MaxSlashes: 0
 
+Style/SignalException:
+  EnforcedStyle: 'only_raise'
+
 Style/SpaceInsideHashLiteralBraces:
   EnforcedStyle: 'no_space'
 
