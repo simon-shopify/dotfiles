@@ -12,6 +12,7 @@
   frob = !git rebase -i "$(git merge-base @ origin/master)"
   co-green = !git checkout "$(script/ci_last_green_master)"
   rebase-green = !git rebase "$(script/ci_last_green_master)"
+  stat = diff --stat
 [push]
   default = simple
 [pull]
