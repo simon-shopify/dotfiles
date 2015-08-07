@@ -102,6 +102,11 @@
             evil-shift-width 2)))
 
   (add-hook
+   'web-mode-hook
+   '(lambda ()
+      (setq web-mode-code-indent-offset 2)))
+
+  (add-hook
    'markdown-mode-hook
    '(lambda ()
       (sp-pair "`" nil :actions :rem))))
