@@ -72,11 +72,12 @@
         auto-completion-tab-key-behavior 'complete))
 
 (defun dotspacemacs/config ()
-  (setq powerline-default-separator 'bar)
-  (setq sgml-basic-offset 2)
-  (setq web-mode-markup-indent-offset 2)
-  (setq projectile-enable-caching nil)
-  (setq enable-remote-dir-locals t)
+  (setq powerline-default-separator 'bar
+        sgml-basic-offset 2
+        web-mode-markup-indent-offset 2
+        projectile-enable-caching nil
+        enable-remote-dir-locals t
+        undo-limit 200000)
   (global-hl-line-mode 0)
   (recentf-mode 0)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
