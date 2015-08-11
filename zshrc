@@ -13,7 +13,17 @@ CASE_SENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git vagrant lein bundler golang)
+plugins=(
+    bundler
+    brew
+    docker
+    gem
+    git
+    golang
+    heroku
+    lein
+    vagrant
+)
 
 source $ZSH/oh-my-zsh.sh
 
