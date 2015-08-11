@@ -18,6 +18,7 @@
      idr
      markdown
      python
+     restclient
      ruby
      rust
      shell
