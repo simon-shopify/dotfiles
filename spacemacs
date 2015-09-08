@@ -71,7 +71,7 @@
   (setq auto-completion-return-key-behavior nil
         auto-completion-tab-key-behavior 'complete))
 
-(defun dotspacemacs/config ()
+(defun dotspacemacs/user-config ()
   (setq powerline-default-separator 'bar
         sgml-basic-offset 2
         web-mode-markup-indent-offset 2
