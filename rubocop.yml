@@ -1,5 +1,8 @@
 ---
 
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+
 Metrics/ClassLength:
   Enabled: false
 
@@ -26,6 +29,9 @@ Style/CollectionMethods:
   Enabled: false
 
 Style/Documentation:
+  Enabled: false
+
+Style/MultilineBlockChain:
   Enabled: false
 
 Style/RegexpLiteral:
