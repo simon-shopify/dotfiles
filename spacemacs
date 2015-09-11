@@ -100,6 +100,7 @@
   (add-hook
    'enh-ruby-mode-hook
    '(lambda ()
+      (modify-syntax-entry ?_ "w")
       (setq enh-ruby-deep-indent-paren nil
             flycheck-rubocoprc "~/.rubocop.yml"
             evil-shift-width 2)))
