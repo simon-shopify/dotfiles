@@ -34,6 +34,9 @@ Style/Documentation:
 Style/MultilineBlockChain:
   Enabled: false
 
+Style/NumericLiterals:
+  Enabled: false
+
 Style/RegexpLiteral:
   MaxSlashes: 0
 
