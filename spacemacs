@@ -24,7 +24,8 @@
      shell
      syntax-checking
      vagrant
-     version-control)
+     version-control
+     yaml)
 
    dotspacemacs-excluded-packages
    '(company-quickhelp
