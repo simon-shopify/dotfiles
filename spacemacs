@@ -110,6 +110,10 @@
    '(lambda ()
       (setq web-mode-code-indent-offset 2)))
 
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+  (setq haskell-process-type 'stack-ghci)
+  (setq flycheck-disabled-checkers '(haskell-ghc))
+
   (add-hook
    'markdown-mode-hook
    '(lambda ()
