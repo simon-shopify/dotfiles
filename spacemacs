@@ -5,10 +5,10 @@
    dotspacemacs-configuration-layer-path '("~/.spacemacs-layers/")
 
    dotspacemacs-configuration-layers
-   '(auto-completion
+   `(auto-completion
      c-c++
      clojure
-     '(company-mode :variables auto-completion-use-tab-instead-of-enter t)
+     (colors :variables colors-enable-nyan-cat-progress-bar ,(display-graphic-p))
      emacs-lisp
      git
      javascript
