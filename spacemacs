@@ -1,9 +1,7 @@
 ;; -*- mode: dotspacemacs -*-
 
 (defun dotspacemacs/layers ()
-  (setq-default
-   dotspacemacs-configuration-layer-path '("~/.spacemacs-layers/")
-
+  (setq
    dotspacemacs-configuration-layers
    `(auto-completion
      c-c++
@@ -15,7 +13,7 @@
      lua
      haskell
      html
-     idr
+     idris-lang
      markdown
      python
      restclient
