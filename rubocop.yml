@@ -55,6 +55,9 @@ Style/StringLiterals:
 Style/TrailingComma:
   EnforcedStyleForMultiline: 'comma'
 
+Style/TrailingUnderscoreVariable:
+  Enabled: false
+
 Style/UnneededPercentQ:
   Enabled: false
 
