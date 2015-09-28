@@ -107,6 +107,11 @@
             evil-shift-width 2)))
 
   (add-hook
+   'yaml-mode-hook
+   '(lambda ()
+      (modify-syntax-entry ?_ "w")))
+
+  (add-hook
    'web-mode-hook
    '(lambda ()
       (setq web-mode-code-indent-offset 2)))
