@@ -2,18 +2,21 @@
 
 (defun dotspacemacs/layers ()
   (setq
+   dotspacemacs-configuration-layer-path
+   '("~/.spacemacs-layers")
    dotspacemacs-configuration-layers
    `(auto-completion
      c-c++
      clojure
      (colors :variables colors-enable-nyan-cat-progress-bar ,(display-graphic-p))
+     elixir
      emacs-lisp
      git
      javascript
      lua
      haskell
      html
-     idris-lang
+     idris
      markdown
      python
      restclient
