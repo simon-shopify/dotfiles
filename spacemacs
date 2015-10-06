@@ -63,6 +63,10 @@
 ;; Initialization Hooks
 ;; --------------------
 
+(defun sgnr/term-send-meta-backspace ()
+  (interactive)
+  (term-send-raw-string "\C-w"))
+
 (defun dotspacemacs/init ()
   (menu-bar-mode -1)
   (setq-default require-final-newline t)
@@ -70,8 +74,10 @@
   (add-to-list 'auto-mode-alist '("\\.mrb$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.es6$" . js2-mode))
   (setq auto-completion-return-key-behavior nil
-        auto-completion-tab-key-behavior 'complete))
+        auto-completion-tab-key-behavior 'complete
+        enh-ruby-add-encoding-comment-on-save nil))
 
 (defun dotspacemacs/user-config ()
   (setq powerline-default-separator 'bar
@@ -79,6 +85,7 @@
         web-mode-markup-indent-offset 2
         projectile-enable-caching nil
         enable-remote-dir-locals t
+        js2-mode-show-strict-warnings nil
         undo-limit 200000)
   (global-hl-line-mode 0)
   (recentf-mode 0)
@@ -87,6 +94,13 @@
   (sp-pair "\"" nil :actions :rem)
 
   (evil-leader/set-key "js" 'evil-surround-change)
+
+  (add-hook
+   'term-mode-hook
+   '(lambda ()
+      (define-key term-raw-map (kbd "M-<backspace>") 'sgnr/term-send-meta-backspace)
+      (define-key term-raw-map (kbd "M-x") 'helm-M-x)
+      (define-key term-raw-map (kbd "M-:") 'eval-expression)))
 
   (add-hook
    'c-mode-hook
@@ -115,6 +129,11 @@
    'web-mode-hook
    '(lambda ()
       (setq web-mode-code-indent-offset 2)))
+
+  (add-hook
+   'js2-mode-hook
+   '(lambda ()
+      (setq js2-basic-offset 2)))
 
   (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
   (setq haskell-process-type 'stack-ghci)
