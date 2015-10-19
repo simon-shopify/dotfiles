@@ -36,7 +36,7 @@ export TZ=America/Montreal
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
 
 export IM_ALREADY_PRO_THANKS=1
-
+export SKIP_BOOTSTRAP=1
 
 if [[ "$(uname -s)" = 'Linux' ]]; then
   NEW_SSH_AUTH_SOCK="$HOME/.ssh/auth-sock/auth-sock"
