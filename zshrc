@@ -48,6 +48,8 @@ if [[ "$(uname -s)" = 'Linux' ]]; then
   export SSH_AUTH_SOCK=$NEW_SSH_AUTH_SOCK
 fi
 
+export RUST_BACKTRACE=1
+
 if [[ -d "$GOPATH" ]]; then
   export GOBIN="$GOPATH/bin"
   export PATH="$GOPATH/bin:$PATH"
