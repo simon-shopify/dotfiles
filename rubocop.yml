@@ -34,6 +34,12 @@ Style/CollectionMethods:
 Style/Documentation:
   Enabled: false
 
+Style/GlobalVars:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
 Style/MultilineBlockChain:
   Enabled: false
 
