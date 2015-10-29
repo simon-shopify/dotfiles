@@ -70,10 +70,10 @@
 (defun dotspacemacs/init ()
   (menu-bar-mode -1)
   (setq-default require-final-newline t)
-  (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
-  (add-to-list 'auto-mode-alist '("\\.mrb$" . ruby-mode))
-  (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
-  (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.mrb$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.es6$" . js2-mode))
   (setq auto-completion-return-key-behavior nil
         auto-completion-tab-key-behavior 'complete
