@@ -32,7 +32,8 @@
    '(company-quickhelp
      rainbow-delimiters
      yasnippet
-     ruby-tools)))
+     ruby-tools
+     flycheck-pos-tikp)))
 
 ;; Settings
 ;; --------
@@ -117,7 +118,6 @@
    '(lambda ()
       (modify-syntax-entry ?_ "w")
       (setq enh-ruby-deep-indent-paren nil
-            flycheck-rubocoprc "~/.rubocop.yml"
             evil-shift-width 2)))
 
   (add-hook
@@ -135,9 +135,18 @@
    '(lambda ()
       (setq js2-basic-offset 2)))
 
-  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
   (setq haskell-process-type 'stack-ghci)
   (setq flycheck-disabled-checkers '(haskell-ghc))
+  (add-hook
+   'haskell-mode-hook
+   '(lambda ()
+      (turn-off-smartparens-mode)
+      (turn-off-show-smartparens-mode)))
+
+  (add-hook
+   'rust-mode-hook
+   'lambda ()
+     (setenv "RUST_SRC_PATH" (substitute-in-file-name "$HOME/src/rust/src")))
 
   (add-hook
    'markdown-mode-hook
