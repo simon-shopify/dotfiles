@@ -1,10 +1,3 @@
-#!/bin/zsh
-
-export PATH="$HOME/.config/bin/$(uname -s)-$(uname -m):$HOME/.config/bin/any:$PATH"
-export PATH="$HOME/.cabal/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="/usr/local/bin:$PATH"
-
 export ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 ZSH_THEME="sgnr"
