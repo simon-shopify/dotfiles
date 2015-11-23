@@ -70,6 +70,9 @@ Style/TrailingComma:
 Style/TrailingUnderscoreVariable:
   Enabled: false
 
+Style/TrivialAccessors:
+  AllowPredicates: true
+
 Style/UnneededPercentQ:
   Enabled: false
 
