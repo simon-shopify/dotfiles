@@ -10,6 +10,7 @@
      clojure
      (colors :variables colors-enable-nyan-cat-progress-bar ,(display-graphic-p))
      elixir
+     elm
      emacs-lisp
      git
      javascript
@@ -23,24 +24,17 @@
      ruby
      rust
      shell
-     syntax-checking
+     (syntax-checking :variables syntax-checking-enable-tooltips nil)
      vagrant
      version-control
-     yaml)
-
-   dotspacemacs-excluded-packages
-   '(company-quickhelp
-     rainbow-delimiters
-     yasnippet
-     ruby-tools
-     flycheck-pos-tikp)))
+     yaml)))
 
 ;; Settings
 ;; --------
 
 (setq-default
  dotspacemacs-editing-style 'vim
- dotspacemacs-themes '(solarized-light)
+ dotspacemacs-themes '(solarized-dark)
  dotspacemacs-leader-key "SPC"
  dotspacemacs-major-mode-leader-key ","
  dotspacemacs-command-key ":"
@@ -87,14 +81,11 @@
         projectile-enable-caching nil
         enable-remote-dir-locals t
         js2-mode-show-strict-warnings nil
-        undo-limit 200000)
+        undo-limit 200000
+        flycheck-check-syntax-automatically '(save mode-enabled))
   (global-hl-line-mode 0)
   (recentf-mode 0)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  (sp-pair "'" nil :actions :rem)
-  (sp-pair "\"" nil :actions :rem)
-
-  (evil-leader/set-key "js" 'evil-surround-change)
 
   (add-hook
    'term-mode-hook
@@ -116,7 +107,9 @@
   (add-hook
    'enh-ruby-mode-hook
    '(lambda ()
-      (modify-syntax-entry ?_ "w")
+      (smartparens-mode -1)
+      (define-key ruby-tools-mode-map "#" nil)
+      (modify-syntax-entry ?_ "w" enh-ruby-mode-syntax-table)
       (setq enh-ruby-deep-indent-paren nil
             evil-shift-width 2)))
 
