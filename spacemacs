@@ -82,7 +82,8 @@
         enable-remote-dir-locals t
         js2-mode-show-strict-warnings nil
         undo-limit 200000
-        flycheck-check-syntax-automatically '(save mode-enabled))
+        flycheck-check-syntax-automatically '(save mode-enabled)
+        magit-fetch-arguments '("--prune"))
   (global-hl-line-mode 0)
   (recentf-mode 0)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
