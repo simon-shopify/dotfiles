@@ -4,5 +4,3 @@
 .#*
 .dir-locals.el
 .tern-port
-
-Gemfile.lock
