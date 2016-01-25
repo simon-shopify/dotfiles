@@ -19,6 +19,7 @@
      html
      idris
      markdown
+     purescript
      python
      restclient
      ruby
@@ -72,7 +73,8 @@
   (add-to-list 'auto-mode-alist '("\\.es6$" . js2-mode))
   (setq auto-completion-return-key-behavior nil
         auto-completion-tab-key-behavior 'complete
-        enh-ruby-add-encoding-comment-on-save nil))
+        enh-ruby-add-encoding-comment-on-save nil
+        ruby-enable-enh-ruby-mode t))
 
 (defun dotspacemacs/user-config ()
   (setq powerline-default-separator 'bar
@@ -109,6 +111,7 @@
    'enh-ruby-mode-hook
    '(lambda ()
       (smartparens-mode -1)
+      (ruby-tools-mode)
       (define-key ruby-tools-mode-map "#" nil)
       (modify-syntax-entry ?_ "w" enh-ruby-mode-syntax-table)
       (setq enh-ruby-deep-indent-paren nil
@@ -147,8 +150,22 @@
    '(lambda ()
       (sp-pair "`" nil :actions :rem))))
 
-;; Custom variables
-;; ----------------
-
-;; Do not write anything in this section. This is where Emacs will
-;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(exec-path-from-shell-arguments (quote ("-l")))
+ '(flycheck-clang-definitions
+   (quote
+    ("MRB_ENABLE_DEBUG_HOOK" "MRB_INT64" "MRB_UTF8_STRING" "MRB_WORD_BOXING" "YYDEBUG")))
+ '(flycheck-clang-include-path
+   (list "/usr/local/include/ruby-2.3.0/x86_64-darwin15" "/usr/local/include/ruby-2.3.0"
+         (expand-file-name "~/src/mruby_engine/ext/mruby_engine/mruby/include"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
