@@ -43,11 +43,6 @@ fi
 
 export RUST_BACKTRACE=1
 
-if [[ -d "$GOPATH" ]]; then
-  export GOBIN="$GOPATH/bin"
-  export PATH="$GOPATH/bin:$PATH"
-fi
-
 function disas () {
   gdb --batch -ex "file $1" -ex "disas $2"
 }
