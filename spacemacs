@@ -35,7 +35,7 @@
 
 (setq-default
  dotspacemacs-editing-style 'vim
- dotspacemacs-themes '(solarized-dark)
+ dotspacemacs-themes '(solarized-light solarized-dark)
  dotspacemacs-leader-key "SPC"
  dotspacemacs-major-mode-leader-key ","
  dotspacemacs-command-key ":"
@@ -43,7 +43,7 @@
  dotspacemacs-colorize-cursor-according-to-state t
 
  dotspacemacs-default-font '("PragmataPro"
-                             :size 13
+                             :size 15
                              :weight normal
                              :width normal
                              :powerline-scale 1.1)
@@ -71,6 +71,7 @@
   (add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
   (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.es6$" . js2-mode))
+  (add-to-list 'auto-mode-alist '(".eslintrc" . json-mode))
   (setq auto-completion-return-key-behavior nil
         auto-completion-tab-key-behavior 'complete
         enh-ruby-add-encoding-comment-on-save nil
@@ -101,6 +102,7 @@
    'c-mode-hook
    '(lambda ()
       (setq c-basic-offset 2)
+      (setq evil-shift-width 2)
       (c-toggle-auto-newline 0)
       (c-set-offset 'arglist-intro 2)
       (c-set-offset 'arglist-close 0)
@@ -130,7 +132,18 @@
   (add-hook
    'js2-mode-hook
    '(lambda ()
-      (setq js2-basic-offset 2)))
+      (lexical-let* ((project-root (projectile-project-root))
+                     (eslint-path (concat (file-name-as-directory project-root) "node_modules/.bin/eslint")))
+        (when (file-executable-p eslint-path)
+          (setq flycheck-javascript-eslint-executable eslint-path)))
+      (setq js2-basic-offset 2)
+      (setq evil-shift-width 2)))
+
+  (add-hook
+   'json-mode-hook
+   '(lambda ()
+      (setq js-indent-level 2)
+      (setq json-reformat:indent-width 2)))
 
   (setq haskell-process-type 'stack-ghci)
   (setq flycheck-disabled-checkers '(haskell-ghc))
