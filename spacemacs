@@ -63,6 +63,12 @@
   (interactive)
   (term-send-raw-string "\C-w"))
 
+(defun sgnr/use-local-eslint ()
+  (lexical-let* ((project-root (projectile-project-root))
+                 (eslint-path (concat (file-name-as-directory project-root) "node_modules/.bin/eslint")))
+    (when (file-executable-p eslint-path)
+      (setq flycheck-javascript-eslint-executable eslint-path))))
+
 (defun dotspacemacs/init ()
   (menu-bar-mode -1)
   (setq-default require-final-newline t)
@@ -87,6 +93,8 @@
         undo-limit 200000
         flycheck-check-syntax-automatically '(save mode-enabled)
         magit-fetch-arguments '("--prune"))
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'javascript-eslint 'web-mode))
   (global-hl-line-mode 0)
   (recentf-mode 0)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -127,16 +135,16 @@
   (add-hook
    'web-mode-hook
    '(lambda ()
+      (sgnr/use-local-eslint)
+      (setq web-mode-attr-indent-offset 2)
       (setq web-mode-code-indent-offset 2)))
 
   (add-hook
    'js2-mode-hook
    '(lambda ()
-      (lexical-let* ((project-root (projectile-project-root))
-                     (eslint-path (concat (file-name-as-directory project-root) "node_modules/.bin/eslint")))
-        (when (file-executable-p eslint-path)
-          (setq flycheck-javascript-eslint-executable eslint-path)))
+      (sgnr/use-local-eslint)
       (setq js2-basic-offset 2)
+      (setq js2-bounce-indent-p t)
       (setq evil-shift-width 2)))
 
   (add-hook
