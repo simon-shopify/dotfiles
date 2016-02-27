@@ -52,6 +52,3 @@ function ias () {
   SOURCE="main: $1"
   echo "$SOURCE" | as -o "$TMP" && gdb --batch -ex "file $TMP" -ex "disas /r main"
 }
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
