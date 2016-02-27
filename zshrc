@@ -1,27 +1,7 @@
-export ZSH=$HOME/.oh-my-zsh
-ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
-ZSH_THEME="sgnr"
-
-CASE_SENSITIVE="true"
-DISABLE_AUTO_TITLE="true"
-COMPLETION_WAITING_DOTS="true"
-
-plugins=(
-    bundler
-    brew
-    docker
-    gem
-    git
-    golang
-    heroku
-    lein
-    vagrant
-)
-
-source $ZSH/oh-my-zsh.sh
-
 alias g="grep -rnI --exclude='*.a'"
 
+export PROMPT="%F{magenta}%n%F{default} on %F{yellow}$(uname | awk '{ print tolower($0) }')%F{default} %F{magenta}%~%F{default}
+%(?..%F{red}%?%F{default} )λ "
 export TERM=xterm
 export LANG="en_US.UTF-8"
 export EDITOR=emacs
