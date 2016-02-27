@@ -1,5 +1,8 @@
 ---
 
+AllCops:
+  TargetRubyVersion: 2.3
+
 Lint/ShadowingOuterLocalVariable:
   Enabled: false
 
@@ -25,6 +28,9 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Enabled: false
 
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+
 Metrics/PerceivedComplexity:
   Enabled: false
 
@@ -40,6 +46,9 @@ Style/GlobalVars:
 Style/GuardClause:
   Enabled: false
 
+Style/IndentArray:
+  EnforcedStyle: "consistent"
+
 Style/MultilineBlockChain:
   Enabled: false
 
@@ -49,14 +58,14 @@ Style/NumericLiterals:
 Style/ParallelAssignment:
   Enabled: false
 
-Style/RegexpLiteral:
-  MaxSlashes: 0
-
 Style/SignalException:
-  EnforcedStyle: 'only_raise'
+  EnforcedStyle: "only_raise"
+
+Style/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: "no_space"
 
 Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: 'no_space'
+  EnforcedStyle: "no_space"
 
 Style/SpecialGlobalVars:
   Enabled: false
@@ -64,8 +73,11 @@ Style/SpecialGlobalVars:
 Style/StringLiterals:
   Enabled: false
 
-Style/TrailingComma:
-  EnforcedStyleForMultiline: 'comma'
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: "comma"
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: "comma"
 
 Style/TrailingUnderscoreVariable:
   Enabled: false
@@ -74,7 +86,4 @@ Style/TrivialAccessors:
   AllowPredicates: true
 
 Style/UnneededPercentQ:
-  Enabled: false
-
-Style/UnneededPercentX:
   Enabled: false
