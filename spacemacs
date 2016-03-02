@@ -22,7 +22,7 @@
      purescript
      python
      restclient
-     ruby
+     (ruby :variables ruby-version-manager 'chruby)
      rust
      shell
      (syntax-checking :variables syntax-checking-enable-tooltips nil)
@@ -84,6 +84,8 @@
         ruby-enable-enh-ruby-mode t))
 
 (defun dotspacemacs/user-config ()
+  (require 'chruby)
+  (chruby "2.3")
   (setq powerline-default-separator 'bar
         sgml-basic-offset 2
         web-mode-markup-indent-offset 2
