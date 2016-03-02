@@ -32,3 +32,5 @@ function ias () {
   SOURCE="main: $1"
   echo "$SOURCE" | as -o "$TMP" && gdb --batch -ex "file $TMP" -ex "disas /r main"
 }
+
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
