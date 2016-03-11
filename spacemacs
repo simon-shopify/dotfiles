@@ -8,7 +8,7 @@
    `(auto-completion
      c-c++
      clojure
-     (colors :variables colors-enable-nyan-cat-progress-bar ,(display-graphic-p))
+     colors
      elixir
      elm
      emacs-lisp
@@ -43,7 +43,7 @@
  dotspacemacs-colorize-cursor-according-to-state t
 
  dotspacemacs-default-font '("PragmataPro"
-                             :size 15
+                             :size 16
                              :weight normal
                              :width normal
                              :powerline-scale 1.1)
