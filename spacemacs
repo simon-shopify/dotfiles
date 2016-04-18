@@ -21,7 +21,6 @@
      markdown
      purescript
      python
-     restclient
      (ruby :variables ruby-version-manager 'chruby)
      rust
      shell
@@ -69,15 +68,19 @@
     (when (file-executable-p eslint-path)
       (setq flycheck-javascript-eslint-executable eslint-path))))
 
+(defun sgnr/enable-proportional-face ()
+  (interactive)
+  (setq buffer-face-mode-face '(:family "CMU Serif" :height 190))
+  (buffer-face-mode)
+  (diminish 'buffer-face-mode))
+
 (defun dotspacemacs/init ()
+  (setq-default dotspacemacs-elpa-https t
+                dotspacemacs-highlight-delimiters nil))
+
+(defun dotspacemacs/user-init ()
   (menu-bar-mode -1)
   (setq-default require-final-newline t)
-  (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
-  (add-to-list 'auto-mode-alist '("\\.mrb$" . enh-ruby-mode))
-  (add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
-  (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
-  (add-to-list 'auto-mode-alist '("\\.es6$" . js2-mode))
-  (add-to-list 'auto-mode-alist '(".eslintrc" . json-mode))
   (setq auto-completion-return-key-behavior nil
         auto-completion-tab-key-behavior 'complete
         enh-ruby-add-encoding-comment-on-save nil
@@ -86,6 +89,16 @@
 (defun dotspacemacs/user-config ()
   (require 'chruby)
   (chruby "2.3")
+
+  (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.mrb$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.js$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.es6$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+  (add-to-list 'auto-mode-alist '(".eslintrc" . json-mode))
+
   (setq powerline-default-separator 'bar
         sgml-basic-offset 2
         web-mode-markup-indent-offset 2
@@ -94,11 +107,16 @@
         js2-mode-show-strict-warnings nil
         undo-limit 200000
         flycheck-check-syntax-automatically '(save mode-enabled)
-        magit-fetch-arguments '("--prune"))
+        magit-fetch-arguments '("--prune")
+        rust-format-on-save t)
+
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'javascript-eslint 'web-mode))
+
+  (spaceline-toggle-version-control-off)
   (global-hl-line-mode 0)
   (recentf-mode 0)
+
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
   (add-hook
@@ -129,6 +147,8 @@
       (setq enh-ruby-deep-indent-paren nil
             evil-shift-width 2)))
 
+  (add-hook 'rubocop-mode-hook '(lambda () (diminish 'rubocop-mode)))
+
   (add-hook
    'yaml-mode-hook
    '(lambda ()
@@ -137,17 +157,14 @@
   (add-hook
    'web-mode-hook
    '(lambda ()
-      (sgnr/use-local-eslint)
+      (let ((file-name (buffer-file-name)))
+       (when (and (stringp file-name)
+                  (member (file-name-extension file-name) '("js" "es6" "jsx")))
+        (sgnr/use-local-eslint)
+        (web-mode-set-content-type "jsx")
+        (tern-mode 1)))
       (setq web-mode-attr-indent-offset 2)
       (setq web-mode-code-indent-offset 2)))
-
-  (add-hook
-   'js2-mode-hook
-   '(lambda ()
-      (sgnr/use-local-eslint)
-      (setq js2-basic-offset 2)
-      (setq js2-bounce-indent-p t)
-      (setq evil-shift-width 2)))
 
   (add-hook
    'json-mode-hook
@@ -165,8 +182,8 @@
 
   (add-hook
    'rust-mode-hook
-   'lambda ()
-     (setenv "RUST_SRC_PATH" (substitute-in-file-name "$HOME/src/rust/src")))
+   '(lambda ()
+      (setenv "RUST_SRC_PATH" (substitute-in-file-name "$HOME/src/github.com/rust-lang/rust/src"))))
 
   (add-hook
    'markdown-mode-hook
@@ -183,8 +200,8 @@
    (quote
     ("MRB_ENABLE_DEBUG_HOOK" "MRB_INT64" "MRB_UTF8_STRING" "MRB_WORD_BOXING" "YYDEBUG")))
  '(flycheck-clang-include-path
-   (list "/usr/local/include/ruby-2.3.0/x86_64-darwin15" "/usr/local/include/ruby-2.3.0"
-         (expand-file-name "~/src/mruby_engine/ext/mruby_engine/mruby/include"))))
+   (list "/opt/rubies/2.3.0/include/ruby-2.3.0/x86_64-darwin15" "/opt/rubies/2.3.0/include/ruby-2.3.0"
+         (expand-file-name "~/src/github.com/Shopify/mruby_engine/ext/mruby_engine/mruby/include"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
