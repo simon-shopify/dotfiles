@@ -186,6 +186,11 @@
       (setenv "RUST_SRC_PATH" (substitute-in-file-name "$HOME/src/github.com/rust-lang/rust/src"))))
 
   (add-hook
+   'c-mode-hook
+   '(lambda ()
+      (setq tab-width 8)))
+
+  (add-hook
    'markdown-mode-hook
    '(lambda ()
       (sp-pair "`" nil :actions :rem))))
