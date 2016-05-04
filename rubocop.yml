@@ -40,6 +40,9 @@ Style/CollectionMethods:
 Style/Documentation:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Style/GlobalVars:
   Enabled: false
 
@@ -47,6 +50,9 @@ Style/GuardClause:
   Enabled: false
 
 Style/IndentArray:
+  EnforcedStyle: "consistent"
+
+Style/IndentHash:
   EnforcedStyle: "consistent"
 
 Style/MultilineBlockChain:
@@ -65,12 +71,15 @@ Style/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: "no_space"
 
 Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: "no_space"
+  EnforcedStyle: "space"
 
 Style/SpecialGlobalVars:
   Enabled: false
 
 Style/StringLiterals:
+  Enabled: false
+
+Style/StringLiteralsInInterpolation:
   Enabled: false
 
 Style/TrailingCommaInLiteral:

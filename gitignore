@@ -4,3 +4,4 @@
 .#*
 .dir-locals.el
 .tern-port
+.rubocop-http*
