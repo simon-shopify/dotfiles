@@ -13,6 +13,7 @@
      elm
      emacs-lisp
      git
+     github
      javascript
      lua
      haskell
@@ -52,7 +53,7 @@
  dotspacemacs-mode-line-unicode-symbols t
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
- dotspacemacs-smartparens-strict-mode nil
+ dotspacemacs-smartparens-strict-mode t
  dotspacemacs-persistent-server nil)
 
 ;; Initialization Hooks
@@ -136,11 +137,9 @@
       (c-set-offset 'arglist-close 0)
       (c-set-offset 'inextern-lang 0)))
 
-  (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode)
   (add-hook
    'enh-ruby-mode-hook
    '(lambda ()
-      (smartparens-mode -1)
       (ruby-tools-mode)
       (define-key ruby-tools-mode-map "#" nil)
       (modify-syntax-entry ?_ "w" enh-ruby-mode-syntax-table)

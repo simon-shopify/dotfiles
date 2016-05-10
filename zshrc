@@ -1,12 +1,18 @@
-alias g="grep -rnI --exclude='*.a'"
-
 export PROMPT="%F{magenta}%n%F{default} on %F{yellow}$(uname | awk '{ print tolower($0) }')%F{default} %F{magenta}%~%F{default}
-%(?..%F{red}%?%F{default} )λ "
+%(?..%F{red}%?%F{default} )$ "
 export TERM=xterm
 export LANG="en_US.UTF-8"
 export EDITOR=emacs
 export TZ=America/Montreal
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
+
+HISTFILE=$HOME/.zsh_history
+setopt APPEND_HISTORY
+HISTSIZE=1200
+SAVEHIST=1000
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt EXTENDED_HISTORY
+autoload -Uz compinit && compinit
 
 export IM_ALREADY_PRO_THANKS=1
 export SKIP_BOOTSTRAP=1
@@ -34,3 +40,5 @@ function ias () {
 }
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+
+alias g="grep -rnI --exclude='*.a'"
