@@ -1,63 +1,57 @@
 ;; -*- mode: dotspacemacs -*-
 
 (defun dotspacemacs/layers ()
-  (setq
-   dotspacemacs-configuration-layer-path
-   '("~/.spacemacs-layers")
-   dotspacemacs-configuration-layers
-   `(auto-completion
-     c-c++
-     clojure
-     colors
-     elixir
-     elm
-     emacs-lisp
-     git
-     github
-     javascript
-     lua
-     haskell
-     html
-     idris
-     markdown
-     purescript
-     python
-     (ruby :variables ruby-version-manager 'chruby)
-     rust
-     shell
-     (syntax-checking :variables syntax-checking-enable-tooltips nil)
-     vagrant
-     version-control
-     yaml)))
+  (setq-default
+   dotspacemacs-distribution 'spacemacs
+   dotspacemacs-configuration-layer-path '("~/.spacemacs-layers")
+   dotspacemacs-configuration-layers `(auto-completion
+                                       c-c++
+                                       clojure
+                                       colors
+                                       elixir
+                                       elm
+                                       emacs-lisp
+                                       git
+                                       javascript
+                                       lua
+                                       haskell
+                                       html
+                                       idris
+                                       markdown
+                                       purescript
+                                       python
+                                       (ruby :variables ruby-version-manager 'chruby)
+                                       rust
+                                       shell
+                                       (syntax-checking :variables syntax-checking-enable-tooltips nil)
+                                       vagrant
+                                       version-control
+                                       yaml)
+   dotspacemacs-additional-packages '()
+   dotspacemacs-excluded-packages '()
+   dotspacemacs-delete-orphan-packages t))
 
-;; Settings
-;; --------
-
-(setq-default
- dotspacemacs-editing-style 'vim
- dotspacemacs-themes '(solarized-light solarized-dark)
- dotspacemacs-leader-key "SPC"
- dotspacemacs-major-mode-leader-key ","
- dotspacemacs-command-key ":"
- dotspacemacs-guide-key-delay 0.4
- dotspacemacs-colorize-cursor-according-to-state t
-
- dotspacemacs-default-font '("PragmataPro"
-                             :size 16
-                             :weight normal
-                             :width normal
-                             :powerline-scale 1.1)
-
- dotspacemacs-active-transparency 100
- dotspacemacs-inactive-transparency 100
- dotspacemacs-mode-line-unicode-symbols t
- dotspacemacs-smooth-scrolling t
- dotspacemacs-feature-toggle-leader-on-jk nil
- dotspacemacs-smartparens-strict-mode t
- dotspacemacs-persistent-server nil)
-
-;; Initialization Hooks
-;; --------------------
+(defun dotspacemacs/init ()
+  (setq-default dotspacemacs-elpa-https t
+                dotspacemacs-editing-style 'vim
+                dotspacemacs-themes '(solarized-light solarized-dark)
+                dotspacemacs-leader-key "SPC"
+                dotspacemacs-major-mode-leader-key ","
+                dotspacemacs-command-key ":"
+                dotspacemacs-guide-key-delay 0.4
+                dotspacemacs-colorize-cursor-according-to-state t
+                dotspacemacs-active-transparency 100
+                dotspacemacs-inactive-transparency 100
+                dotspacemacs-mode-line-unicode-symbols t
+                dotspacemacs-smooth-scrolling t
+                dotspacemacs-feature-toggle-leader-on-jk nil
+                dotspacemacs-smartparens-strict-mode t
+                dotspacemacs-persistent-server nil
+                dotspacemacs-highlight-delimiters nil
+                dotspacemacs-default-font '("PragmataPro"
+                                            :size 17
+                                            :weight normal
+                                            :width normal)))
 
 (defun sgnr/term-send-meta-backspace ()
   (interactive)
@@ -75,9 +69,33 @@
   (buffer-face-mode)
   (diminish 'buffer-face-mode))
 
-(defun dotspacemacs/init ()
-  (setq-default dotspacemacs-elpa-https t
-                dotspacemacs-highlight-delimiters nil))
+(defun sgnr/symbol-with-hash-rocket-region ()
+  (list
+   (save-excursion
+     (if (looking-at-p ":")
+         (point)
+       (search-backward ":" (line-beginning-position) t)))
+   (save-excursion
+     (when (and (looking-at-p ":") (not (eolp)))
+       (forward-char))
+     (if (re-search-forward "=>" (line-end-position) t)
+         (1+ (point))
+       (line-end-position)))))
+
+(defun sgnr/ruby-to-new-style-hash ()
+  (interactive)
+  (when (and (not (ruby-tools-string-at-point-p)) (ruby-tools-symbol-at-point-p))
+    (let* ((region (sgnr/symbol-with-hash-rocket-region))
+           (min (nth 0 region))
+           (max (nth 1 region))
+           (content
+            (buffer-substring-no-properties min max)))
+      (setq content
+            (replace-regexp-in-string ":\\([a-zA-Z_][a-zA-Z_0-9]*\\)\s*=>" "\\1:" content))
+      (let ((orig-point (point)))
+        (delete-region min max)
+        (insert content)
+        (goto-char orig-point)))))
 
 (defun dotspacemacs/user-init ()
   (menu-bar-mode -1)
@@ -89,7 +107,7 @@
 
 (defun dotspacemacs/user-config ()
   (require 'chruby)
-  (chruby "2.3")
+  (chruby "2.3.0")
 
   (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.mrb$" . enh-ruby-mode))
@@ -100,7 +118,7 @@
   (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
   (add-to-list 'auto-mode-alist '(".eslintrc" . json-mode))
 
-  (setq powerline-default-separator 'bar
+  (setq powerline-default-separator nil
         sgml-basic-offset 2
         web-mode-markup-indent-offset 2
         projectile-enable-caching nil
@@ -110,6 +128,10 @@
         flycheck-check-syntax-automatically '(save mode-enabled)
         magit-fetch-arguments '("--prune")
         rust-format-on-save t)
+
+  (spacemacs/set-leader-keys "<SPC>" 'avy-goto-word-1)
+  (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
+    "x=" 'sgnr/ruby-to-new-style-hash)
 
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'javascript-eslint 'web-mode))
@@ -142,7 +164,6 @@
    '(lambda ()
       (ruby-tools-mode)
       (define-key ruby-tools-mode-map "#" nil)
-      (modify-syntax-entry ?_ "w" enh-ruby-mode-syntax-table)
       (setq enh-ruby-deep-indent-paren nil
             evil-shift-width 2)))
 
