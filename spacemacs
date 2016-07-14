@@ -356,7 +356,11 @@
   (add-hook
    'rust-mode-hook
    '(lambda ()
-      (setenv "RUST_SRC_PATH" (substitute-in-file-name "$HOME/src/github.com/rust-lang/rust/src"))))
+      (setq racer-rust-src-path
+            (cond
+             ((string-equal system-type "windows-nt")
+              "/Users/Simon/Source/github.com/rust-lang/rust/src")
+             (t (substitute-in-file-name "$HOME/src/github.com/rust-lang/rust/src"))))))
 
   (add-hook
    'c-mode-hook
