@@ -18,12 +18,14 @@
                                        idris
                                        markdown
                                        purescript
-                                       python
                                        react
-                                       (ruby :variables ruby-version-manager 'chruby)
+                                       (ruby :variables
+                                             ruby-version-manager 'chruby
+                                             ruby-enable-enh-ruby-mode t)
                                        rust
                                        shell
-                                       (syntax-checking :variables syntax-checking-enable-tooltips nil)
+                                       (syntax-checking :variables
+                                                        syntax-checking-enable-tooltips nil)
                                        version-control
                                        yaml)
    dotspacemacs-additional-packages '()
@@ -248,22 +250,18 @@
   (setq-default require-final-newline t)
   (setq auto-completion-return-key-behavior nil
         auto-completion-tab-key-behavior 'complete
-        enh-ruby-add-encoding-comment-on-save nil
-        ruby-enable-enh-ruby-mode t))
+        enh-ruby-add-encoding-comment-on-save nil))
 
 (defun dotspacemacs/user-config ()
-  (require 'chruby)
-  (chruby "2.3.0")
-
   (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.mrb$" . enh-ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
   (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.js$" . react-mode))
+  (add-to-list 'auto-mode-alist '("\\.js.erb$" . react-mode))
 
   (setq powerline-default-separator nil)
   (spaceline-compile)
-
 
   (setq projectile-enable-caching nil
         enable-remote-dir-locals t
