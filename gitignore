@@ -2,6 +2,7 @@
 
 *.swp
 .#*
+TAGS
 .dir-locals.el
 .idea
 .tern-port

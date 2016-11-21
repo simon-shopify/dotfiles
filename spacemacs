@@ -8,9 +8,11 @@
                                        c-c++
                                        clojure
                                        colors
+                                       elixir
                                        elm
                                        emacs-lisp
                                        git
+                                       go
                                        javascript
                                        lua
                                        haskell
@@ -26,6 +28,7 @@
                                        shell
                                        (syntax-checking :variables
                                                         syntax-checking-enable-tooltips nil)
+                                       vagrant
                                        version-control
                                        yaml)
    dotspacemacs-additional-packages '()
@@ -46,7 +49,7 @@
                 dotspacemacs-mode-line-unicode-symbols t
                 dotspacemacs-smooth-scrolling t
                 dotspacemacs-feature-toggle-leader-on-jk nil
-                dotspacemacs-smartparens-strict-mode t
+                dotspacemacs-smartparens-strict-mode nil
                 dotspacemacs-persistent-server nil
                 dotspacemacs-highlight-delimiters nil
                 dotspacemacs-default-font '("PragmataPro"
@@ -63,6 +66,12 @@
                  (eslint-path (concat (file-name-as-directory project-root) "node_modules/.bin/eslint")))
     (when (file-executable-p eslint-path)
       (setq flycheck-javascript-eslint-executable eslint-path))))
+
+(defun sgnr/use-local-rubocop ()
+  (lexical-let* ((project-root (projectile-project-root))
+                 (rubocop-path (concat (file-name-as-directory project-root) "bin/rubocop")))
+    (when (file-executable-p rubocop-path)
+      (setq flycheck-ruby-rubocop-executable rubocop-path))))
 
 (defun sgnr/symbol-with-hash-rocket-region ()
   (list
@@ -136,7 +145,7 @@
             ("->" . #XE7A4)
             ("->>" . #XE7A5)
             ("---" . #XE7A6)
-            ("-->" . #XE7A7)
+            ; ("-->" . #XE7A7)
             (".." . #XE7B0)
             ("..." . #XE7B1)
             ("..<" . #XE7B2)
@@ -201,8 +210,8 @@
             ("<\"" . #XE80D)
             ("<:" . #XE80E)
             ("<->" . #XE80F)
-            ("<!--" . #XE810)
-            ("<--" . #XE811)
+            ; ("<!--" . #XE810)
+            ; ("<--" . #XE811)
             ("==<" . #XE820)
             ("==" . #XE821)
             ("===" . #XE822)
@@ -280,6 +289,9 @@
   (spaceline-toggle-version-control-off)
   (global-hl-line-mode 0)
 
+  (setq elm-format-on-save t
+        elm-format-command "elm-format-0.17")
+
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
   (add-hook
@@ -307,20 +319,28 @@
       (c-set-offset 'arglist-close 0)
       (c-set-offset 'inextern-lang 0)))
 
+  (setq enh-ruby-program "/opt/rubies/2.2.3p172-shopify/bin/ruby")
   (add-hook
    'enh-ruby-mode-hook
    '(lambda ()
+      (chruby "2.2")
+      (sgnr/use-local-rubocop)
       (ruby-tools-mode)
       (define-key ruby-tools-mode-map "#" nil)
       (setq enh-ruby-deep-indent-paren nil
             evil-shift-width 2)))
-
-  (add-hook 'rubocop-mode-hook '(lambda () (diminish 'rubocop-mode)))
+  (remove-hook 'enh-ruby-mode-hook 'rubocop-mode)
 
   (add-hook
    'yaml-mode-hook
    '(lambda ()
       (modify-syntax-entry ?_ "w")))
+
+  (add-hook
+   'react-mode-hook
+   '(lambda ()
+      (sgnr/use-local-eslint)))
+  (remove-hook 'react-mode-hook 'js2-minor-mode)
 
   (add-hook
    'web-mode-hook
@@ -335,7 +355,6 @@
       (setq web-mode-markup-indent-offset 2)
       (setq web-mode-attr-indent-offset 2)
       (setq web-mode-code-indent-offset 2)))
-  (remove-hook 'web-mode-hook 'spacemacs/toggle-smartparens-off)
 
   (add-hook
    'json-mode-hook
@@ -344,7 +363,7 @@
       (setq json-reformat:indent-width 2)))
 
   (setq haskell-process-type 'stack-ghci)
-  (setq flycheck-disabled-checkers '(haskell-ghc))
+  (setq flycheck-disabled-checkers '(haskell-ghc ruby))
   (add-hook
    'haskell-mode-hook
    '(lambda ()
@@ -368,7 +387,12 @@
   (add-hook
    'markdown-mode-hook
    '(lambda ()
-      (sp-pair "`" nil :actions :rem))))
+      (sp-pair "`" nil :actions :rem)))
+
+  (add-hook
+   'css-mode-hook
+   '(lambda ()
+      (setq css-indent-offset 2))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -381,7 +405,10 @@
     ("MRB_ENABLE_DEBUG_HOOK" "MRB_INT64" "MRB_UTF8_STRING" "MRB_WORD_BOXING" "YYDEBUG")))
  '(flycheck-clang-include-path
    (list "/opt/rubies/2.3.0/include/ruby-2.3.0/x86_64-darwin15" "/opt/rubies/2.3.0/include/ruby-2.3.0"
-         (expand-file-name "~/src/github.com/Shopify/mruby_engine/ext/mruby_engine/mruby/include"))))
+         (expand-file-name "~/src/github.com/Shopify/mruby_engine/ext/mruby_engine/mruby/include")))
+ '(package-selected-packages
+   (quote
+    (vagrant-tramp vagrant go-guru go-eldoc company-go go-mode pug-mode ob-elixir org minitest hide-comnt skewer-mode simple-httpd dumb-jump cargo powerline purescript-mode pcre2el json-snatcher json-reformat prop-menu parent-mode haml-mode gitignore-mode fringe-helper git-gutter+ flx web-completion-data dash-functional pos-tip ghc inflections edn multiple-cursors paredit peg eval-sexp-fu highlight spinner clojure-mode inf-ruby yasnippet packed pkg-info epl popup bind-map iedit undo-tree s git-gutter js2-mode markdown-mode package-build smooth-scrolling shm ruby-end page-break-lines leuven-theme company-racer deferred buffer-move bracketed-paste hydra auto-complete request projectile git-commit company evil flycheck-mix alchemist elixir-mode use-package spacemacs-theme racer org-plus-contrib intero git-messenger git-link flycheck-rust exec-path-from-shell evil-unimpaired evil-exchange bundler cider tern anzu smartparens flycheck haskell-mode helm helm-core avy magit magit-popup with-editor f dash yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen toml-mode toc-org tagedit spaceline solarized-theme smeargle slim-mode shell-pop scss-mode sass-mode rvm rust-mode ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-mode rainbow-identifiers rainbow-delimiters queue quelpa psci psc-ide popwin persp-mode paradox orgit org-bullets open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lua-mode lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide idris-mode ido-vertical-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-hoogle helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flycheck-haskell flycheck-elm flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help enh-ruby-mode emmet-mode elm-mode elisp-slime-nav disaster diminish diff-hl define-word company-web company-tern company-statistics company-quickhelp company-ghci company-ghc company-cabal company-c-headers column-enforce-mode color-identifiers-mode coffee-mode cmm-mode cmake-mode clojure-snippets clj-refactor clean-aindent-mode clang-format cider-eval-sexp-fu chruby bind-key auto-yasnippet auto-highlight-symbol auto-compile async aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
