@@ -6,6 +6,8 @@ export EDITOR=emacs
 export TZ=America/Montreal
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
 
+setopt interactivecomments
+
 HISTFILE=$HOME/.zsh_history
 setopt APPEND_HISTORY
 HISTSIZE=1200
