@@ -1,6 +1,7 @@
 #!/usr/bin/env perl6
 
 my @files = <
+    config
     emacs.d spacemacs spacemacs-layers
     gitconfig gitignore
     xinitrc xmodmap xresources
