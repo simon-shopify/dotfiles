@@ -1,5 +1,5 @@
-.netrwhist
-vim/bundle/*
-!vim/bundle/Vundle.vim
 lein/*
 !lein/profiles.clj
+config/*
+!config/i3
+!config/i3status
