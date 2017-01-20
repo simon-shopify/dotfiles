@@ -6,30 +6,22 @@
    dotspacemacs-configuration-layer-path '("~/.spacemacs-layers")
    dotspacemacs-configuration-layers `(auto-completion
                                        c-c++
-                                       clojure
                                        colors
-                                       elixir
-                                       elm
                                        emacs-lisp
                                        git
                                        go
                                        javascript
                                        lua
-                                       haskell
                                        html
-                                       idris
                                        markdown
                                        perl
-                                       purescript
                                        react
                                        (ruby :variables
                                              ruby-version-manager 'chruby
                                              ruby-enable-enh-ruby-mode t)
-                                       rust
                                        shell
                                        (syntax-checking :variables
                                                         syntax-checking-enable-tooltips nil)
-                                       vagrant
                                        version-control
                                        yaml)
    dotspacemacs-additional-packages '()
@@ -57,10 +49,6 @@
                                             :size 18
                                             :weight normal
                                             :width normal)))
-
-(defun sgnr/term-send-meta-backspace ()
-  (interactive)
-  (term-send-raw-string "\C-w"))
 
 (defun sgnr/use-local-eslint ()
   (lexical-let* ((project-root (projectile-project-root))
@@ -124,8 +112,7 @@
         enable-remote-dir-locals t
         undo-limit 200000
         flycheck-check-syntax-automatically '(save mode-enabled)
-        magit-fetch-arguments '("--prune")
-        rust-format-on-save t)
+        magit-fetch-arguments '("--prune"))
 
   (spacemacs/set-leader-keys "<SPC>" 'avy-goto-word-1)
   (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
@@ -137,25 +124,7 @@
   (spaceline-toggle-version-control-off)
   (global-hl-line-mode 0)
 
-  (setq elm-format-on-save t
-        elm-format-command "elm-format-0.17")
-
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-  (add-hook
-   'prog-mode-hook
-   '(lambda ()
-      (setq prettify-symbols-unprettify-at-point t
-            prettify-symbols-alist
-            (append prettify-symbols-alist sgnr/pragmatapro-font-lock-symbols-alist))
-      (prettify-symbols-mode 1)))
-
-  (add-hook
-   'term-mode-hook
-   '(lambda ()
-      (define-key term-raw-map (kbd "M-<backspace>") 'sgnr/term-send-meta-backspace)
-      (define-key term-raw-map (kbd "M-x") 'helm-M-x)
-      (define-key term-raw-map (kbd "M-:") 'eval-expression)))
 
   (add-hook
    'c-mode-hook
@@ -174,11 +143,11 @@
       (setq evil-shift-width 2)
       (c-set-offset 'arglist-intro '+)))
 
-  (setq enh-ruby-program "/opt/rubies/2.2.3p172-shopify/bin/ruby")
+  (setq enh-ruby-program "/opt/rubies/2.3.3/bin/ruby")
   (add-hook
    'enh-ruby-mode-hook
    '(lambda ()
-      (chruby "2.2")
+      (chruby "2.3.3")
       (sgnr/use-local-rubocop)
       (ruby-tools-mode)
       (define-key ruby-tools-mode-map "#" nil)
@@ -212,22 +181,7 @@
       (setq js-indent-level 2)
       (setq json-reformat:indent-width 2)))
 
-  (setq haskell-process-type 'stack-ghci)
-  (setq flycheck-disabled-checkers '(haskell-ghc ruby))
-  (add-hook
-   'haskell-mode-hook
-   '(lambda ()
-      (turn-off-smartparens-mode)
-      (turn-off-show-smartparens-mode)))
-
-  (add-hook
-   'rust-mode-hook
-   '(lambda ()
-      (setq racer-rust-src-path
-            (cond
-             ((string-equal system-type "windows-nt")
-              "/Users/Simon/Source/github.com/rust-lang/rust/src")
-             (t (substitute-in-file-name "$HOME/src/github.com/rust-lang/rust/src"))))))
+  (setq flycheck-disabled-checkers '(ruby))
 
   (add-hook
    'c-mode-hook
