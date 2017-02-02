@@ -44,3 +44,13 @@ function ias () {
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 
 alias g="grep -rnI --exclude='*.a'"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /Users/sgnr/Downloads/google-cloud-sdk/path.zsh.inc ]; then
+  source '/Users/sgnr/Downloads/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /Users/sgnr/Downloads/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/Users/sgnr/Downloads/google-cloud-sdk/completion.zsh.inc'
+fi
