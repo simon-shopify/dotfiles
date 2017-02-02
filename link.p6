@@ -3,6 +3,7 @@
 my @files = <
     emacs.d spacemacs spacemacs-layers
     gitconfig gitignore
+    rubocop.yml
     zshrc zpath zprofile zshenv
 >;
 
