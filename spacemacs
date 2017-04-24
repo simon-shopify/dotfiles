@@ -1,215 +1,134 @@
-;; -*- mode: dotspacemacs -*-
+;; -*- mode: emacs-lisp -*-
 
 (defun dotspacemacs/layers ()
   (setq-default
    dotspacemacs-distribution 'spacemacs
+   dotspacemacs-enable-lazy-installation 'unused
+   dotspacemacs-ask-for-lazy-installation t
    dotspacemacs-configuration-layer-path '("~/.spacemacs-layers")
-   dotspacemacs-configuration-layers `(auto-completion
-                                       c-c++
-                                       colors
-                                       emacs-lisp
-                                       git
-                                       go
-                                       javascript
-                                       lua
-                                       html
-                                       markdown
-                                       perl
-                                       react
-                                       (ruby :variables
-                                             ruby-version-manager 'chruby
-                                             ruby-enable-enh-ruby-mode t)
-                                       rust
-                                       shell
-                                       (syntax-checking :variables
-                                                        syntax-checking-enable-tooltips nil)
-                                       version-control
-                                       yaml)
+   dotspacemacs-configuration-layers
+   '((auto-completion :variables
+                      auto-completion-return-key-behavior nil
+                      auto-completion-tab-key-behavior nil
+                      auto-completion-complete-with-key-sequence "jk")
+     better-defaults
+     emacs-lisp
+     git
+     helm
+     (ruby :variables
+           ruby-version-manager 'chruby
+           ruby-enable-enh-ruby-mode t)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil)
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltips nil)
+     version-control)
    dotspacemacs-additional-packages '()
-   dotspacemacs-excluded-packages '()
-   dotspacemacs-delete-orphan-packages t))
+   dotspacemacs-frozen-packages '()
+   dotspacemacs-excluded-packages '(orgit)
+   dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
-  (setq-default dotspacemacs-elpa-https t
-                dotspacemacs-editing-style 'vim
-                dotspacemacs-themes '(solarized-dark solarized-light)
-                dotspacemacs-leader-key "SPC"
-                dotspacemacs-major-mode-leader-key ","
-                dotspacemacs-command-key ":"
-                dotspacemacs-guide-key-delay 0.4
-                dotspacemacs-colorize-cursor-according-to-state t
-                dotspacemacs-active-transparency 100
-                dotspacemacs-inactive-transparency 100
-                dotspacemacs-mode-line-unicode-symbols t
-                dotspacemacs-smooth-scrolling t
-                dotspacemacs-feature-toggle-leader-on-jk nil
-                dotspacemacs-smartparens-strict-mode nil
-                dotspacemacs-persistent-server nil
-                dotspacemacs-highlight-delimiters nil
-                dotspacemacs-default-font '("PragmataPro"
-                                            :size 18
-                                            :weight normal
-                                            :width normal)))
+  (setq-default
+   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-timeout 5
+   dotspacemacs-check-for-update nil
+   dotspacemacs-elpa-subdirectory nil
+   dotspacemacs-editing-style 'vim
+   dotspacemacs-verbose-loading nil
+   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-lists '((recents . 5) (projects . 7))
+   dotspacemacs-startup-buffer-responsive t
+   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-themes '(spacemacs-dark spacemacs-light)
+   dotspacemacs-colorize-cursor-according-to-state t
+   dotspacemacs-default-font '("PragmataPro"
+                               :size 16
+                               :weight normal
+                               :width normal
+                               :powerline-scale 1.1)
+   dotspacemacs-leader-key "SPC"
+   dotspacemacs-emacs-command-key "SPC"
+   dotspacemacs-ex-command-key ":"
+   dotspacemacs-emacs-leader-key "M-m"
+   dotspacemacs-major-mode-leader-key ","
+   dotspacemacs-major-mode-emacs-leader-key "C-M-m"
+   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-remap-Y-to-y$ t
+   dotspacemacs-retain-visual-state-on-shift t
+   dotspacemacs-visual-line-move-text t
+   dotspacemacs-ex-substitute-global t
+   dotspacemacs-default-layout-name "default"
+   dotspacemacs-display-default-layout nil
+   dotspacemacs-auto-resume-layouts nil
+   dotspacemacs-large-file-size 2
+   dotspacemacs-auto-save-file-location 'cache
+   dotspacemacs-max-rollback-slots 5
+   dotspacemacs-helm-resize nil
+   dotspacemacs-helm-no-header nil
+   dotspacemacs-helm-position 'bottom
+   dotspacemacs-helm-use-fuzzy 'always
+   dotspacemacs-enable-paste-transient-state t
+   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-position 'bottom
+   dotspacemacs-loading-progress-bar t
+   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-use-non-native nil
+   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-active-transparency 100
+   dotspacemacs-inactive-transparency 100
+   dotspacemacs-show-transient-state-title t
+   dotspacemacs-show-transient-state-color-guide t
+   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-smooth-scrolling t
+   dotspacemacs-line-numbers t
+   dotspacemacs-folding-method 'evil
+   dotspacemacs-smartparens-strict-mode t
+   dotspacemacs-smart-closing-parenthesis nil
+   dotspacemacs-highlight-delimiters 'all
+   dotspacemacs-persistent-server nil
+   dotspacemacs-search-tools '("rg" "grep")
+   dotspacemacs-default-package-repository nil
+   dotspacemacs-whitespace-cleanup 'changed))
 
-(defun sgnr/use-local-eslint ()
-  (lexical-let* ((project-root (projectile-project-root))
-                 (eslint-path (concat (file-name-as-directory project-root) "node_modules/.bin/eslint")))
-    (when (file-executable-p eslint-path)
-      (setq flycheck-javascript-eslint-executable eslint-path))))
+(defun dotspacemacs/user-init ())
 
-(defun sgnr/use-local-rubocop ()
-  (lexical-let* ((project-root (projectile-project-root))
-                 (rubocop-path (concat (file-name-as-directory project-root) "bin/rubocop")))
+(defconst simon-shopify//default-ruby-version "2.3.3")
+
+(defun simon-shopify//file-name-in-project-root (file-name)
+  (concat (file-name-as-directory (projectile-project-root)) file-name))
+
+(defun simon-shopify//read-ruby-version ()
+  (lexical-let ((ruby-version-file-path (simon-shopify//file-name-in-project-root ".ruby-version")))
+    (cond
+     ((file-exists-p ruby-version-file-path)
+      (with-temp-buffer
+        (insert-file-contents (simon-shopify//ruby-version-file-path))
+        (buffer-string)))
+     (t simon-shopify//default-ruby-version))))
+
+(defun simon-shopify//use-local-rubocop ()
+  (lexical-let ((rubocop-path (simon-shopify//file-name-in-project-root "bin/rubocop")))
     (when (file-executable-p rubocop-path)
       (setq flycheck-ruby-rubocop-executable rubocop-path))))
 
-(defun sgnr/symbol-with-hash-rocket-region ()
-  (list
-   (save-excursion
-     (if (looking-at-p ":")
-         (point)
-       (search-backward ":" (line-beginning-position) t)))
-   (save-excursion
-     (when (and (looking-at-p ":") (not (eolp)))
-       (forward-char))
-     (if (re-search-forward "=>" (line-end-position) t)
-         (1+ (point))
-       (line-end-position)))))
-
-(defun sgnr/ruby-to-new-style-hash ()
-  (interactive)
-  (when (and (not (ruby-tools-string-at-point-p)) (ruby-tools-symbol-at-point-p))
-    (let* ((region (sgnr/symbol-with-hash-rocket-region))
-           (min (nth 0 region))
-           (max (nth 1 region))
-           (content
-            (buffer-substring-no-properties min max)))
-      (setq content
-            (replace-regexp-in-string ":\\([a-zA-Z_][a-zA-Z_0-9]*\\)\s*=>" "\\1:" content))
-      (let ((orig-point (point)))
-        (delete-region min max)
-        (insert content)
-        (goto-char orig-point)))))
-
-(defun dotspacemacs/user-init ()
-  (menu-bar-mode -1)
-  (setq-default require-final-newline t)
-  (setq auto-completion-return-key-behavior nil
-        auto-completion-tab-key-behavior 'complete
-        enh-ruby-add-encoding-comment-on-save nil))
+(defun simon-shopify//ruby-mode-hook ()
+  (setq enh-ruby-check-syntax nil)
+  (simon-shopify//use-local-rubocop)
+  (lexical-let* ((ruby-version (simon-shopify//read-ruby-version))
+                 (ruby-version-directory (concat "/opt/rubies/" ruby-version))
+                 (ruby-program (concat (file-name-as-directory ruby-version-directory) "bin/ruby")))
+    (when (file-executable-p ruby-program)
+      (setq enh-ruby-program ruby-program
+            flycheck-ruby-executable ruby-program)
+      (chruby ruby-version))))
 
 (defun dotspacemacs/user-config ()
-  (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
-  (add-to-list 'auto-mode-alist '("\\.mrb$" . enh-ruby-mode))
-  (add-to-list 'auto-mode-alist '("\\.gemspec$" . enh-ruby-mode))
-  (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
-  (add-to-list 'auto-mode-alist '("\\.js$" . react-mode))
-  (add-to-list 'auto-mode-alist '("\\.js.erb$" . react-mode))
-
-  (setq powerline-default-separator nil)
+  (setq powerline-default-separator nil
+        flycheck-check-syntax-automatically '(save mode-enabled))
   (spaceline-compile)
-
-  (setq projectile-enable-caching nil
-        enable-remote-dir-locals t
-        undo-limit 200000
-        flycheck-check-syntax-automatically '(save mode-enabled)
-        magit-fetch-arguments '("--prune"))
-
-  (spacemacs/set-leader-keys "<SPC>" 'avy-goto-word-1)
-  (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
-    "x=" 'sgnr/ruby-to-new-style-hash)
-
-  (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'javascript-eslint 'web-mode))
-
-  (spaceline-toggle-version-control-off)
-  (global-hl-line-mode 0)
-
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-  (add-hook
-   'c-mode-hook
-   '(lambda ()
-      (setq c-basic-offset 2)
-      (setq evil-shift-width 2)
-      (c-toggle-auto-newline 0)
-      (c-set-offset 'arglist-intro 2)
-      (c-set-offset 'arglist-close 0)
-      (c-set-offset 'inextern-lang 0)))
-
-  (add-hook
-   'c++-mode-hook
-   '(lambda ()
-      (setq c-basic-offset 2)
-      (setq evil-shift-width 2)
-      (c-set-offset 'arglist-intro '+)))
-
-  (setq enh-ruby-program "/opt/rubies/2.3.3/bin/ruby")
-  (add-hook
-   'enh-ruby-mode-hook
-   '(lambda ()
-      (chruby "2.3.3")
-      (sgnr/use-local-rubocop)
-      (ruby-tools-mode)
-      (define-key ruby-tools-mode-map "#" nil)
-      (setq enh-ruby-deep-indent-paren nil
-            evil-shift-width 2)))
-  (remove-hook 'enh-ruby-mode-hook 'rubocop-mode)
-
-  (add-hook
-   'react-mode-hook
-   '(lambda ()
-      (sgnr/use-local-eslint)))
-  (remove-hook 'react-mode-hook 'js2-minor-mode)
-
-  (add-hook
-   'web-mode-hook
-   '(lambda ()
-      (let ((file-name (buffer-file-name)))
-       (when (and (stringp file-name)
-                  (member (file-name-extension file-name) '("js")))
-        (sgnr/use-local-eslint)
-        (web-mode-set-content-type "jsx")
-        (tern-mode 1)))
-      (setq web-mode-enable-auto-pairing nil)
-      (setq web-mode-markup-indent-offset 2)
-      (setq web-mode-attr-indent-offset 2)
-      (setq web-mode-code-indent-offset 2)))
-
-  (add-hook
-   'json-mode-hook
-   '(lambda ()
-      (setq js-indent-level 2)
-      (setq json-reformat:indent-width 2)))
-
-  (setq flycheck-disabled-checkers '(ruby))
-
-  (add-hook
-   'c-mode-hook
-   '(lambda ()
-      (setq tab-width 8)))
-
-  (add-hook
-   'markdown-mode-hook
-   '(lambda ()
-      (sp-pair "`" nil :actions :rem)))
-
-  (add-hook
-   'css-mode-hook
-   '(lambda ()
-      (setq css-indent-offset 2))))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (toml-mode racer flycheck-rust cargo rust-mode web-mode use-package rubocop persp-mode orgit org hide-comnt helm-projectile gitattributes-mode git-gutter-fringe evil-surround evil-mc evil-matchit evil-escape eshell-z clang-format flycheck company request helm helm-core magit with-editor inf-ruby js2-mode yaml-mode xterm-color ws-butler window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen toc-org tagedit spacemacs-theme spaceline solarized-theme smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rspec-mode robe restart-emacs rbenv rake rainbow-mode rainbow-identifiers rainbow-delimiters quelpa pug-mode popwin perl6-mode paradox org-plus-contrib org-bullets open-junk-file neotree multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lua-mode lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio go-guru go-eldoc gitconfig-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter gh-md flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu eshell-prompt-extras esh-help enh-ruby-mode emmet-mode elisp-slime-nav dumb-jump disaster diminish diff-hl define-word company-web company-tern company-statistics company-go company-c-headers column-enforce-mode color-identifiers-mode coffee-mode cmake-mode clean-aindent-mode chruby bundler bind-key auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
- '(rust-format-on-save t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  (add-hook 'enh-ruby-mode-hook 'simon-shopify//ruby-mode-hook)
+  (remove-hook 'enh-ruby-mode-hook 'rubocop-mode))
