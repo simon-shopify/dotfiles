@@ -49,7 +49,7 @@
                                :size 16
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.0)
    dotspacemacs-leader-key "SPC"
    dotspacemacs-emacs-command-key "SPC"
    dotspacemacs-ex-command-key ":"
@@ -116,7 +116,6 @@
       (setq flycheck-ruby-rubocop-executable rubocop-path))))
 
 (defun simon-shopify//ruby-mode-hook ()
-  (setq enh-ruby-check-syntax nil)
   (simon-shopify//use-local-rubocop)
   (lexical-let* ((ruby-version (simon-shopify//read-ruby-version))
                  (ruby-version-directory (concat "/opt/rubies/" ruby-version))
@@ -128,7 +127,10 @@
 
 (defun dotspacemacs/user-config ()
   (setq powerline-default-separator nil
+        projectile-enable-caching t
         flycheck-check-syntax-automatically '(save mode-enabled))
   (spaceline-compile)
+
+  (chruby simon-shopify//default-ruby-version)
   (add-hook 'enh-ruby-mode-hook 'simon-shopify//ruby-mode-hook)
   (remove-hook 'enh-ruby-mode-hook 'rubocop-mode))
