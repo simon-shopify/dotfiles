@@ -7,3 +7,4 @@
 .idea
 .tern-port
 .rubocop-http*
+.ignore
