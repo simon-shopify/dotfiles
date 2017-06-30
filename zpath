@@ -1,15 +1,7 @@
-if [[ -d "/Library/TeX/texbin" ]]; then
-  export PATH="/Library/TeX/texbin:$PATH"
-fi
-
 export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.bin:$PATH"
 
-if [[ -d "$GOPATH" ]]; then
-  export GOBIN="$GOPATH/bin"
-  export PATH="$GOPATH/bin:$PATH"
-fi
-
-export PATH="$HOME/.config/bin/$(uname -s)-$(uname -m):$HOME/.config/bin/any:$PATH"
-export PATH="$HOME/.cabal/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
+export GOROOT="$HOME/.dev/go/1.8"
+export GOPATH="$HOME/Source/go"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$(go env GOPATH)/bin:$PATH"

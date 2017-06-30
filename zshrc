@@ -18,6 +18,8 @@ autoload -Uz compinit && compinit
 
 export IM_ALREADY_PRO_THANKS=1
 export SKIP_BOOTSTRAP=1
+export TDD=0
+export BACKTRACE=1
 
 if [[ "$(uname -s)" = 'Linux' ]]; then
   NEW_SSH_AUTH_SOCK="$HOME/.ssh/auth-sock/auth-sock"
@@ -28,8 +30,6 @@ if [[ "$(uname -s)" = 'Linux' ]]; then
   fi
   export SSH_AUTH_SOCK=$NEW_SSH_AUTH_SOCK
 fi
-
-export RUST_BACKTRACE=1
 
 function disas () {
   gdb --batch -ex "file $1" -ex "disas $2"
@@ -42,15 +42,11 @@ function ias () {
 }
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
-alias g="grep -rnI --exclude='*.a'"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/sgnr/Downloads/google-cloud-sdk/path.zsh.inc ]; then
-  source '/Users/sgnr/Downloads/google-cloud-sdk/path.zsh.inc'
+if [ -f /Users/simon/google-cloud-sdk/path.zsh.inc ]; then
+  source '/Users/simon/google-cloud-sdk/path.zsh.inc'
 fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f /Users/sgnr/Downloads/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/Users/sgnr/Downloads/google-cloud-sdk/completion.zsh.inc'
+if [ -f /Users/simon/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/Users/simon/google-cloud-sdk/completion.zsh.inc'
 fi
