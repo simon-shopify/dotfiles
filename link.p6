@@ -1,6 +1,7 @@
 #!/usr/bin/env perl6
 
 my @files = <
+    bin
     emacs.d spacemacs spacemacs-layers
     gitconfig gitignore
     rubocop.yml
