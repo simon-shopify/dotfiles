@@ -1,0 +1,9 @@
+#!/usr/bin/env perl6
+
+use lib "{%*ENV<HOME>}/.shared-modules";
+use ShopifyGit;
+
+sub MAIN($branch-name = prompt-for-branch) {
+  git("checkout", "-b", $branch-name);
+  add-branch-to-fetch($branch-name);
+}
