@@ -5,6 +5,10 @@
 /TAGS
 .dir-locals.el
 .idea
+.vscode
 .tern-port
 .rubocop-http*
 .ignore
+.vagrant
+Vagrantfile
+.precomp/
