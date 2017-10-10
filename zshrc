@@ -1,5 +1,6 @@
 export PROMPT="%F{magenta}%n%F{default} on %F{yellow}$(uname | awk '{ print tolower($0) }')%F{default} %F{magenta}%~%F{default}
 %(?..%F{red}%?%F{default} )$ "
+export PROMPT="%(?..%F{red}%?%F{default} )%F{magenta}$%F{default} "
 export TERM=xterm
 export LANG="en_US.UTF-8"
 export EDITOR=emacsclient
