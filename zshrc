@@ -20,6 +20,7 @@ export IM_ALREADY_PRO_THANKS=1
 export SKIP_BOOTSTRAP=1
 export TDD=0
 export BACKTRACE=1
+export DOCKER_HOST=shopify.railgun:2375
 
 if [[ "$(uname -s)" = 'Linux' ]]; then
   NEW_SSH_AUTH_SOCK="$HOME/.ssh/auth-sock/auth-sock"
