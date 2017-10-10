@@ -3,7 +3,10 @@
 use lib "{%*ENV<HOME>}/.shared-modules";
 use ShopifyGit;
 
-sub MAIN($branch-name = prompt-for-branch) {
-  git("checkout", "-b", $branch-name);
-  add-branch-to-fetch($branch-name);
+sub MAIN(Str $branch-arg?, Str :$remote = "origin") {
+    git(<<checkout -b $branch-arg>>) if $branch-arg;
+    my $branch-name = $branch-arg //
+        run(<<git name-rev --name-only @>>, :out, :err).out.slurp(:close).chomp;
+    add-branch-to-fetch($branch-name);
+    git(<<push --set-upstream $remote $branch-name>>);
 }
