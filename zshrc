@@ -2,7 +2,7 @@ export PROMPT="%F{magenta}%n%F{default} on %F{yellow}$(uname | awk '{ print tolo
 %(?..%F{red}%?%F{default} )$ "
 export TERM=xterm
 export LANG="en_US.UTF-8"
-export EDITOR=emacs
+export EDITOR=emacsclient
 export TZ=America/Montreal
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
 
