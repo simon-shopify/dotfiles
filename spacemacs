@@ -12,6 +12,8 @@
                       auto-completion-tab-key-behavior nil
                       auto-completion-complete-with-key-sequence "jk")
      better-defaults
+     (c-c++ :variables
+            c-c++-enable-clang-support t)
      coq
      emacs-lisp
      git
@@ -123,24 +125,43 @@
     (when (file-executable-p rubocop-path)
       (setq flycheck-ruby-rubocop-executable rubocop-path))))
 
+(defun simon-shopify//enter-chruby ()
+  (lexical-let ((ruby-version (simon-shopify//read-ruby-version)))
+    (chruby ruby-version)
+    ruby-version))
+
 (defun simon-shopify//ruby-mode-hook ()
   (simon-shopify//use-local-rubocop)
   (lexical-let* ((delimiter-face-foreground (face-foreground 'enh-ruby-string-delimiter-face)))
     (set-face-foreground 'enh-ruby-regexp-delimiter-face delimiter-face-foreground)
     (set-face-foreground 'enh-ruby-heredoc-delimiter-face delimiter-face-foreground))
-  (lexical-let* ((ruby-version (simon-shopify//read-ruby-version))
+  (lexical-let* ((ruby-version (simon-shopify//enter-chruby))
                  (ruby-version-directory (concat "/opt/rubies/" ruby-version))
                  (ruby-program (concat (file-name-as-directory ruby-version-directory) "bin/ruby")))
     (when (file-executable-p ruby-program)
       (setq enh-ruby-program ruby-program
-            flycheck-ruby-executable ruby-program)
-      (chruby ruby-version))))
+            flycheck-ruby-executable ruby-program))))
 
 (defun simon-shopify//configure-ruby ()
   (setq enh-ruby-add-encoding-comment-on-save nil)
   (chruby simon-shopify//default-ruby-version)
   (add-hook 'enh-ruby-mode-hook 'simon-shopify//ruby-mode-hook t)
   (remove-hook 'enh-ruby-mode-hook 'rubocop-mode))
+
+(defun simon-shopify//rb-config (key)
+  (lexical-let ((command (concat "ruby -e 'print(RbConfig::CONFIG[%(" key ")])'")))
+    (shell-command-to-string command)))
+
+(defun simon-shopify//c-mode-hook ()
+  (simon-shopify//enter-chruby)
+  (lexical-let ((ruby-header-dir (simon-shopify//rb-config "rubyhdrdir")))
+    (add-to-list 'flycheck-clang-include-path ruby-header-dir))
+  (lexical-let ((ruby-arch-header-dir (simon-shopify//rb-config "rubyarchhdrdir")))
+    (add-to-list 'flycheck-clang-include-path ruby-arch-header-dir))
+  (c-set-offset 'arglist-intro '+))
+
+(defun simon-shopify//configure-c ()
+  (add-hook 'c-mode-hook 'simon-shopify//c-mode-hook t))
 
 (defun simon-shopify//configure-spaceline ()
   (spaceline-toggle-version-control-off)
@@ -150,6 +171,7 @@
 (defun dotspacemacs/user-config ()
   (setq projectile-enable-caching t
         flycheck-check-syntax-automatically '(save mode-enabled))
+  (simon-shopify//configure-c)
   (simon-shopify//configure-spaceline)
   (simon-shopify//configure-ruby))
 
@@ -163,10 +185,9 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(js2-mode-show-strict-warnings nil)
  '(package-selected-packages
    (quote
-    (goto-chg proof-general company-coq company-math math-symbol-lists iedit company-lua lua-mode packed perl6-mode flycheck-perl6 projectile hydra powerline auctex-latexmk highlight undo-tree avy with-editor mmm-mode markdown-toc markdown-mode gh-md yasnippet idris-mode inf-ruby company dash impatient-mode htmlize company-auctex auctex ruby-refactor password-generator window-purpose imenu-list evil-lion editorconfig flycheck smartparens evil git-commit async s web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode livid-mode skewer-mode simple-httpd less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc helm-css-scss haml-mode emmet-mode company-web web-completion-data company-tern dash-functional tern coffee-mode yaml-mode robe magit-gitflow magit helm helm-core xterm-color ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline smeargle shell-pop rvm ruby-tools ruby-test-mode rubocop rspec-mode restart-emacs rbenv rake rainbow-delimiters popwin persp-mode paradox org-plus-contrib org-bullets open-junk-file neotree mwim multi-term move-text minitest magit-popup macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help enh-ruby-mode elisp-slime-nav dumb-jump diff-hl define-word company-statistics column-enforce-mode clean-aindent-mode chruby bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (realgud test-simple loc-changes load-relative disaster company-c-headers cmake-mode cmake-ide levenshtein clang-format auctex projectile skewer-mode markdown-mode company dash idris-mode prop-menu which-key web-mode use-package ruby-test-mode persp-mode org-plus-contrib neotree expand-region evil-mc evil-exchange dumb-jump diff-hl chruby aggressive-indent smartparens evil flycheck helm helm-core yasnippet magit git-commit inf-ruby js2-mode yaml-mode xterm-color ws-butler with-editor winum web-beautify volatile-highlights vi-tilde-fringe uuidgen unfill undo-tree toc-org tagedit spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pug-mode popwin pcre2el paradox org-bullets open-junk-file mwim multi-term move-text minitest magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag goto-chg google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help enh-ruby-mode emmet-mode elisp-slime-nav diminish define-word company-web company-tern company-statistics column-enforce-mode coffee-mode clean-aindent-mode bundler bind-key auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
