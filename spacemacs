@@ -104,7 +104,8 @@
    dotspacemacs-default-package-repository nil
    dotspacemacs-whitespace-cleanup 'changed))
 
-(defun dotspacemacs/user-init ())
+(defun dotspacemacs/user-init ()
+  (setq exec-path-from-shell-arguments '("-l")))
 
 (defconst simon-shopify//default-ruby-version "2.3.3")
 
@@ -168,12 +169,20 @@
   (setq powerline-default-separator nil)
   (spaceline-compile))
 
+(defun simon-shopify//configure-magit ()
+  (with-eval-after-load 'magit
+    (magit-add-section-hook 'magit-status-sections-hook
+                            'magit-insert-unpushed-to-upstream
+                            'magit-insert-unpushed-to-upstream-or-recent
+                            'replace)))
+
 (defun dotspacemacs/user-config ()
   (setq projectile-enable-caching t
         flycheck-check-syntax-automatically '(save mode-enabled))
   (simon-shopify//configure-c)
   (simon-shopify//configure-spaceline)
-  (simon-shopify//configure-ruby))
+  (simon-shopify//configure-ruby)
+  (simon-shopify//configure-magit))
 
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
@@ -187,7 +196,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (realgud test-simple loc-changes load-relative disaster company-c-headers cmake-mode cmake-ide levenshtein clang-format auctex projectile skewer-mode markdown-mode company dash idris-mode prop-menu which-key web-mode use-package ruby-test-mode persp-mode org-plus-contrib neotree expand-region evil-mc evil-exchange dumb-jump diff-hl chruby aggressive-indent smartparens evil flycheck helm helm-core yasnippet magit git-commit inf-ruby js2-mode yaml-mode xterm-color ws-butler with-editor winum web-beautify volatile-highlights vi-tilde-fringe uuidgen unfill undo-tree toc-org tagedit spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pug-mode popwin pcre2el paradox org-bullets open-junk-file mwim multi-term move-text minitest magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag goto-chg google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help enh-ruby-mode emmet-mode elisp-slime-nav diminish define-word company-web company-tern company-statistics column-enforce-mode coffee-mode clean-aindent-mode bundler bind-key auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (string-inflection editorconfig company-lua browse-at-remote auctex-latexmk window-purpose imenu-list avy magit-popup hydra f s auctex projectile skewer-mode markdown-mode company dash idris-mode prop-menu which-key web-mode use-package ruby-test-mode persp-mode org-plus-contrib neotree expand-region evil-mc evil-exchange dumb-jump diff-hl chruby aggressive-indent smartparens evil flycheck helm helm-core yasnippet magit git-commit inf-ruby js2-mode yaml-mode xterm-color ws-butler with-editor winum web-beautify volatile-highlights vi-tilde-fringe uuidgen unfill undo-tree toc-org tagedit spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pug-mode popwin pcre2el paradox org-bullets open-junk-file mwim multi-term move-text minitest magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag goto-chg google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help enh-ruby-mode emmet-mode elisp-slime-nav diminish define-word company-web company-tern company-statistics column-enforce-mode coffee-mode clean-aindent-mode bundler bind-key auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
