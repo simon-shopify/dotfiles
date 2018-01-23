@@ -14,19 +14,22 @@
      better-defaults
      (c-c++ :variables
             c-c++-enable-clang-support t)
-     coq
+     docker
+     elixir
      emacs-lisp
      git
+     (go :variables go-tab-width 2)
      helm
      html
      javascript
      latex
      lua
      markdown
-     perl6
+     perl
      (ruby :variables
            ruby-version-manager 'chruby
            ruby-enable-enh-ruby-mode t)
+     rust
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -38,7 +41,7 @@
      yaml)
    dotspacemacs-additional-packages '()
    dotspacemacs-frozen-packages '()
-   dotspacemacs-excluded-packages '(orgit)
+   dotspacemacs-excluded-packages '()
    dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
@@ -92,7 +95,7 @@
    dotspacemacs-inactive-transparency 100
    dotspacemacs-show-transient-state-title t
    dotspacemacs-show-transient-state-color-guide t
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols nil
    dotspacemacs-smooth-scrolling t
    dotspacemacs-line-numbers t
    dotspacemacs-folding-method 'evil
@@ -164,6 +167,9 @@
 (defun simon-shopify//configure-c ()
   (add-hook 'c-mode-hook 'simon-shopify//c-mode-hook t))
 
+(defun simon-shopify//configure-rust ()
+  (setq rust-indent-offset 2))
+
 (defun simon-shopify//configure-spaceline ()
   (spaceline-toggle-version-control-off)
   (setq powerline-default-separator nil)
@@ -179,6 +185,7 @@
 (defun dotspacemacs/user-config ()
   (setq projectile-enable-caching t
         flycheck-check-syntax-automatically '(save mode-enabled))
+  (simon-shopify//configure-rust)
   (simon-shopify//configure-c)
   (simon-shopify//configure-spaceline)
   (simon-shopify//configure-ruby)
@@ -196,7 +203,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (auctex-latexmk yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org tagedit symon string-inflection spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor rubocop rspec-mode robe restart-emacs realgud rbenv rake rainbow-delimiters pug-mode proof-general popwin persp-mode perl6-mode password-generator paradox org-plus-contrib org-bullets open-junk-file neotree mwim multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flycheck-perl6 flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help enh-ruby-mode emmet-mode elisp-slime-nav editorconfig dumb-jump disaster diff-hl define-word company-web company-tern company-statistics company-lua company-coq company-c-headers company-auctex column-enforce-mode coffee-mode cmake-mode cmake-ide clean-aindent-mode clang-format chruby bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (web-mode realgud mwim js2-refactor go-tag flx-ido eshell-prompt-extras dumb-jump chruby auto-compile auctex-latexmk smartparens flycheck projectile helm helm-core magit magit-popup git-commit ghub with-editor async markdown-mode org-plus-contrib yasnippet powerline dash yaml-mode xterm-color ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toml-mode toc-org test-simple tagedit symon string-inflection spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters racer pug-mode popwin ponylang-mode pony-snippets persp-mode perl6-mode password-generator paradox packed overseer org-bullets open-junk-file ob-elixir neotree nameless multiple-cursors multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum loc-changes load-relative livid-mode linum-relative link-hint less-css-mode js-doc info+ indent-guide impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio godoctor go-rename go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-helm flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-pony flycheck-mix flycheck-credo fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z esh-help enh-ruby-mode emmet-mode elisp-slime-nav editorconfig dockerfile-mode docker disaster diminish diff-hl define-word company-web company-tern company-statistics company-rtags company-lua company-go company-c-headers company-auctex column-enforce-mode coffee-mode cmake-mode cmake-ide clean-aindent-mode clang-format cargo bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

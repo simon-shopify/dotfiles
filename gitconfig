@@ -14,3 +14,7 @@
   signingkey = 447F2102387BD12D
 [commit]
   gpgsign = true
+[credential]
+  helper = osxkeychain
+[fetch]
+	prune = true

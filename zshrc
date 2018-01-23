@@ -25,9 +25,12 @@ export BACKTRACE=1
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
+source "$HOME/.minikube-completion"
 if [ -f /Users/simon/google-cloud-sdk/path.zsh.inc ]; then
   source '/Users/simon/google-cloud-sdk/path.zsh.inc'
 fi
 if [ -f /Users/simon/google-cloud-sdk/completion.zsh.inc ]; then
   source '/Users/simon/google-cloud-sdk/completion.zsh.inc'
 fi
+
+function jt { ruby /Users/simon/src/github.com/graalvm/truffleruby/tool/jt.rb "$@"; }
