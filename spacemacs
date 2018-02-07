@@ -12,8 +12,8 @@
                       auto-completion-tab-key-behavior nil
                       auto-completion-complete-with-key-sequence "jk")
      better-defaults
-     (c-c++ :variables
-            c-c++-enable-clang-support t)
+     ;; (c-c++ :variables
+     ;;        c-c++-enable-clang-support t)
      docker
      elixir
      emacs-lisp
@@ -22,8 +22,6 @@
      helm
      html
      javascript
-     latex
-     lua
      markdown
      perl
      (ruby :variables
@@ -37,6 +35,7 @@
                      spell-checking-enable-by-default nil)
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
+     typescript
      version-control
      yaml)
    dotspacemacs-additional-packages '()
@@ -56,10 +55,10 @@
    dotspacemacs-startup-lists '((recents . 5) (projects . 7))
    dotspacemacs-startup-buffer-responsive t
    dotspacemacs-scratch-mode 'text-mode
-   dotspacemacs-themes '(spacemacs-dark spacemacs-light)
+   dotspacemacs-themes '(spacemacs-light spacemacs-dark)
    dotspacemacs-colorize-cursor-according-to-state t
    dotspacemacs-default-font '("PragmataPro"
-                               :size 16
+                               :size 19
                                :weight normal
                                :width normal
                                :powerline-scale 1.0)
@@ -182,13 +181,31 @@
                             'magit-insert-unpushed-to-upstream-or-recent
                             'replace)))
 
+(defun chomp (str)
+  (replace-regexp-in-string (rx (* (any " \t\n")) eos) "" str))
+
+(defun dotspacemacs//use-local-tslint ()
+  (lexical-let* ((bin-path (shell-command-to-string "yarn bin"))
+                 (clean-bin-path (chomp bin-path))
+                 (tslint-path (concat (file-name-as-directory clean-bin-path) "tslint")))
+    (setq flycheck-typescript-tslint-executable tslint-path)))
+
+(defun dotspacemacs//configure-typescript ()
+  (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
+  (setq js-indent-level 2
+        typescript-indent-level 2)
+  (add-hook 'typescript-mode-hook 'dotspacemacs//use-local-tslint))
+
 (defun dotspacemacs/user-config ()
   (setq projectile-enable-caching t
-        flycheck-check-syntax-automatically '(save mode-enabled))
+        flycheck-check-syntax-automatically '(save mode-enabled)
+        flycheck-gometalinter-vendor t)
   (simon-shopify//configure-rust)
   (simon-shopify//configure-c)
   (simon-shopify//configure-spaceline)
   (simon-shopify//configure-ruby)
+  (dotspacemacs//configure-typescript)
   (simon-shopify//configure-magit))
 
 (defun dotspacemacs/emacs-custom-settings ()
@@ -203,7 +220,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (web-mode realgud mwim js2-refactor go-tag flx-ido eshell-prompt-extras dumb-jump chruby auto-compile auctex-latexmk smartparens flycheck projectile helm helm-core magit magit-popup git-commit ghub with-editor async markdown-mode org-plus-contrib yasnippet powerline dash yaml-mode xterm-color ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toml-mode toc-org test-simple tagedit symon string-inflection spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters racer pug-mode popwin ponylang-mode pony-snippets persp-mode perl6-mode password-generator paradox packed overseer org-bullets open-junk-file ob-elixir neotree nameless multiple-cursors multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum loc-changes load-relative livid-mode linum-relative link-hint less-css-mode js-doc info+ indent-guide impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio godoctor go-rename go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-helm flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-pony flycheck-mix flycheck-credo fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z esh-help enh-ruby-mode emmet-mode elisp-slime-nav editorconfig dockerfile-mode docker disaster diminish diff-hl define-word company-web company-tern company-statistics company-rtags company-lua company-go company-c-headers company-auctex column-enforce-mode coffee-mode cmake-mode cmake-ide clean-aindent-mode clang-format cargo bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (tide typescript-mode yasnippet-snippets yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toml-mode toc-org tagedit symon string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe restart-emacs realgud rbenv rake rainbow-delimiters racer pug-mode popwin persp-mode perl6-mode password-generator paradox overseer org-bullets open-junk-file ob-elixir neotree nameless mwim multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode js2-refactor js-doc indent-guide impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio godoctor go-tag go-rename go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-mix flycheck-credo flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help enh-ruby-mode emmet-mode elisp-slime-nav editorconfig dumb-jump dockerfile-mode docker disaster diminish diff-hl define-word counsel-projectile company-web company-tern company-statistics company-rtags company-lua company-go company-c-headers company-auctex column-enforce-mode coffee-mode clean-aindent-mode clang-format chruby centered-cursor-mode cargo bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
