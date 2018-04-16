@@ -19,10 +19,13 @@
      emacs-lisp
      git
      (go :variables go-tab-width 2)
+     haskell
      helm
      html
      javascript
+     latex
      markdown
+     nginx
      perl
      (ruby :variables
            ruby-version-manager 'chruby
@@ -57,11 +60,16 @@
    dotspacemacs-scratch-mode 'text-mode
    dotspacemacs-themes '(spacemacs-light spacemacs-dark)
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font '("PragmataPro"
-                               :size 19
-                               :weight normal
+   dotspacemacs-default-font '("Operator Mono SSm"
+                               :size 16
+                               :weight book
                                :width normal
                                :powerline-scale 1.0)
+   ;; dotspacemacs-default-font '("PragmataPro"
+   ;;                             :size 19
+   ;;                             :weight normal
+   ;;                             :width normal
+   ;;                             :powerline-scale 1.0)
    dotspacemacs-leader-key "SPC"
    dotspacemacs-emacs-command-key "SPC"
    dotspacemacs-ex-command-key ":"
@@ -169,8 +177,25 @@
 (defun simon-shopify//configure-rust ()
   (setq rust-indent-offset 2))
 
+(defun dotspacemacs//configure-go ()
+  (setq flycheck-gometalinter-fast t
+        flycheck-gometalinter-vendor t)
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-to-list 'flycheck-disabled-checkers 'go-golint))))
+
+(defun dotspacemacs//configure-haskell ()
+  (add-hook 'haskell-mode-hook
+            (lambda ()
+              (add-to-list 'flycheck-disabled-checkers 'haskell-ghc)
+              (setq flycheck-ghc-args (list "-Wno-name-shadowing")))))
+
+(defun dotspacemacs//configure-markdown ()
+  (add-hook 'markdown-mode-hook (lambda () (variable-pitch-mode t))))
+
 (defun simon-shopify//configure-spaceline ()
   (spaceline-toggle-version-control-off)
+  (spaceline-toggle-hud-off)
   (setq powerline-default-separator nil)
   (spaceline-compile))
 
@@ -190,22 +215,49 @@
                  (tslint-path (concat (file-name-as-directory clean-bin-path) "tslint")))
     (setq flycheck-typescript-tslint-executable tslint-path)))
 
+(defun dotspacemacs//format-web ()
+  (interactive)
+  (if (spacemacs//typescript-tsx-file-p)
+      (spacemacs/typescript-format)
+    (web-beautify-html)))
+
 (defun dotspacemacs//configure-typescript ()
-  (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
   (setq js-indent-level 2
-        typescript-indent-level 2)
-  (add-hook 'typescript-mode-hook 'dotspacemacs//use-local-tslint))
+        tide-format-options '(:indentSize 2)
+        typescript-indent-level 2
+        web-mode-code-indent-offset 2
+        web-mode-markup-indent-offset 2
+        web-mode-enable-auto-quoting nil)
+  (flycheck-add-mode 'typescript-tslint 'web-mode)
+  (add-hook 'typescript-mode-hook 'dotspacemacs//use-local-tslint)
+  (spacemacs/set-leader-keys-for-major-mode 'web-mode "=" 'dotspacemacs//format-web))
+
+(defun dotspacemacs//configure-digraphs ()
+  (setq evil-digraphs-table-user
+        '(((?. ?.) . ?…))))
+
+(defun dotspacemacs//configure-fonts ()
+  (set-face-attribute font-lock-keyword-face nil :inherit 'italic)
+  (with-eval-after-load 'web-mode
+    (set-face-attribute 'web-mode-keyword-face nil :inherit 'italic)))
+
+(defun dotspacemacs//configure-docker ()
+  (add-to-list 'auto-mode-alist '("\\.docker\\'" . dockerfile-mode)))
 
 (defun dotspacemacs/user-config ()
   (setq projectile-enable-caching t
-        flycheck-check-syntax-automatically '(save mode-enabled)
-        flycheck-gometalinter-vendor t)
+        flycheck-check-syntax-automatically '(save mode-enabled))
+  (dotspacemacs//configure-fonts)
+  (dotspacemacs//configure-digraphs)
   (simon-shopify//configure-rust)
   (simon-shopify//configure-c)
   (simon-shopify//configure-spaceline)
   (simon-shopify//configure-ruby)
   (dotspacemacs//configure-typescript)
+  (dotspacemacs//configure-markdown)
+  (dotspacemacs//configure-go)
+  (dotspacemacs//configure-haskell)
+  (dotspacemacs//configure-docker)
   (simon-shopify//configure-magit))
 
 (defun dotspacemacs/emacs-custom-settings ()
@@ -220,7 +272,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (tide typescript-mode yasnippet-snippets yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toml-mode toc-org tagedit symon string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe restart-emacs realgud rbenv rake rainbow-delimiters racer pug-mode popwin persp-mode perl6-mode password-generator paradox overseer org-bullets open-junk-file ob-elixir neotree nameless mwim multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode js2-refactor js-doc indent-guide impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-rtags helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio godoctor go-tag go-rename go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-mix flycheck-credo flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help enh-ruby-mode emmet-mode elisp-slime-nav editorconfig dumb-jump dockerfile-mode docker disaster diminish diff-hl define-word counsel-projectile company-web company-tern company-statistics company-rtags company-lua company-go company-c-headers company-auctex column-enforce-mode coffee-mode clean-aindent-mode clang-format chruby centered-cursor-mode cargo bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (yasnippet-snippets yaml-mode web-mode tide typescript-mode ruby-hash-syntax link-hint js2-refactor multiple-cursors intero hl-todo helm-projectile helm-make helm-descbinds flycheck-rust flycheck-haskell evil-nerd-commenter evil-matchit evil-magit enh-ruby-mode editorconfig dumb-jump dockerfile-mode docker define-word dante lcr company-web company-auctex auto-compile auctex-latexmk auctex avy projectile counsel swiper ivy smartparens flycheck haskell-mode go-mode company helm helm-core htmlize magit magit-popup git-commit ghub with-editor rust-mode js2-mode spaceline powerline s dash which-key exec-path-from-shell async evil org-plus-contrib xterm-color ws-butler winum web-completion-data web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill undo-tree toml-mode toc-org tagedit tablist symon string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters racer pug-mode popwin persp-mode perl6-mode password-generator paradox packed overseer org-bullets open-junk-file ob-elixir nginx-mode neotree nameless mwim multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative less-css-mode json-mode js-doc indent-guide impatient-mode hungry-delete hlint-refactor hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-mode-manager helm-hoogle helm-gitignore helm-flx helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets goto-chg google-translate golden-ratio godoctor go-tag go-rename go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flycheck-mix flycheck-credo flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav docker-tramp diminish diff-hl counsel-projectile company-tern company-statistics company-go company-ghci company-ghc company-cabal column-enforce-mode coffee-mode cmm-mode clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
