@@ -11,7 +11,7 @@
 [user]
   name = Simon Génier
   email = simon.genier@shopify.com
-  signingkey = 447F2102387BD12D
+  signingkey = 756525143CA69CA0D45676E010A0CE318A1EF4ED
 [commit]
   gpgsign = true
 [credential]
