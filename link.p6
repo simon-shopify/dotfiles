@@ -2,7 +2,8 @@
 
 my @files = <
   bin shared-modules
-  emacs.d spacemacs spacemacs-layers
+  config
+  emacs.d
   gitconfig gitignore
   rubocop.yml
   zshrc zpath zprofile zshenv
