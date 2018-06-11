@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 
 my @files = <
-  bin shared-modules
+  shared-modules
   config
   emacs.d
   gitconfig gitignore
