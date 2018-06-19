@@ -1,1 +1,3 @@
+# -*- mode: sh; -*-
+
 source ~/.zpath
