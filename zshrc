@@ -17,9 +17,7 @@ setopt EXTENDED_HISTORY
 autoload -Uz compinit && compinit
 
 export IM_ALREADY_PRO_THANKS=1
-export SKIP_BOOTSTRAP=1
 export TDD=0
-export BACKTRACE=1
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
@@ -37,5 +35,3 @@ source <(kubectl completion zsh)
 
 setopt PROMPT_SUBST
 export PROMPT='%(?..%F{red}%?%F{default} )%F{green}$(kubectl config current-context | sed 's/minikube//')%F{default} %F{magenta}$%F{default} '
-
-function jt { ruby /Users/simon/src/github.com/graalvm/truffleruby/tool/jt.rb "$@"; }
