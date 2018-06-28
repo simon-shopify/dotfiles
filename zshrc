@@ -24,15 +24,10 @@ export TDD=0
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
-source /Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion
-source /Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion
-source "$HOME/.minikube-completion"
-if [ -f /Users/simon/google-cloud-sdk/path.zsh.inc ]; then
-  source '/Users/simon/google-cloud-sdk/path.zsh.inc'
-fi
-if [ -f /Users/simon/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/Users/simon/google-cloud-sdk/completion.zsh.inc'
-fi
+source "/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion"
+source "/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion"
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 source <(kubectl completion zsh)
 
 setopt PROMPT_SUBST
