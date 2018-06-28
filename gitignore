@@ -5,6 +5,7 @@
 /TAGS
 .dir-locals.el
 .idea
+.project
 .vscode
 .tern-port
 .rubocop-http*
