@@ -1,3 +1,4 @@
 config/*
 !config/doom
+!config/kitty
 !config/zsh
