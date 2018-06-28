@@ -3,6 +3,7 @@
 my @files = <
   shared-modules
   config
+  chunkwmrc
   emacs.d
   gitconfig gitignore
   rubocop.yml
