@@ -14,6 +14,8 @@ HISTSIZE=1200
 SAVEHIST=1000
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
+
+fpath+=~/.config/zsh/functions
 autoload -Uz compinit && compinit
 
 export IM_ALREADY_PRO_THANKS=1
