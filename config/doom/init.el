@@ -1,5 +1,4 @@
-;;; init.el -*- lexical-binding: t; -*-
-;; Copy me to ~/.doom.d/init.el or ~/.config/doom/init.el, then edit me!
+;;; -*- lexical-binding: t; -*-
 
 (doom! :feature
       ;debugger          ; FIXME stepping through code, to help you add bugs
@@ -67,7 +66,7 @@
 
        :lang
       ;assembly          ; assembly for fun or debugging
-       cc                ; C/C++/Obj-C madness
+       (cc +irony +rtags)
       ;crystal           ; ruby at the speed of c
       ;clojure           ; java with a lisp
       ;csharp            ; unity, .NET, and mono shenanigans
