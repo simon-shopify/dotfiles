@@ -20,6 +20,7 @@ autoload -Uz compinit && compinit
 
 export IM_ALREADY_PRO_THANKS=1
 export TDD=0
+export CLICOLOR=1
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
