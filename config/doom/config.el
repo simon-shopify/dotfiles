@@ -27,3 +27,14 @@
   (auto-fill-mode 1))
 
 (add-hook! latex-mode #'private/latex-mode-hook)
+
+(defun private/c++-mode-hook ()
+  (c-set-offset 'innamespace 0)
+  (c-set-offset 'access-label '-)
+  (c-set-offset 'inclass '+))
+
+(add-hook! c++-mode #'private/c++-mode-hook)
+
+(map! (:leader
+        (:desc "search" :prefix "s"
+          :desc "No Highlight" :nv "c" #'evil-ex-nohighlight)))
