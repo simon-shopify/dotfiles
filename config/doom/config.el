@@ -33,8 +33,21 @@
   (c-set-offset 'access-label '-)
   (c-set-offset 'inclass '+))
 
+
 (add-hook! c++-mode #'private/c++-mode-hook)
+
+(defun private/company-mode-hook ()
+  (let ((map company-active-map))
+    (define-key map (kbd "RET") 'nil)
+    (define-key map (kbd "TAB") 'nil)))
+
+(add-hook! company-mode #'private/company-mode-hook)
 
 (map! (:leader
         (:desc "search" :prefix "s"
-          :desc "No Highlight" :nv "c" #'evil-ex-nohighlight)))
+          :desc "No Highlight" :nv "c" #'evil-ex-nohighlight))
+      (:after company
+        (:map company-active-map
+          "C-SPC" #'company-complete
+          [return] 'nil
+          [tab] 'nil)))
